@@ -1,0 +1,35 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "Services\\Payment\\Payment.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Services\\Shipping\\Shipping.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Services\\Identity.API\\Identity.API.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Services\\Catalog.API\\Catalog.API.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Services\\Ordering.API\\Ordering.API.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Services\\Gateway\\Gateway.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Services\\Notification.API\\Notification.API.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

@@ -1,0 +1,200 @@
+2026-07-10 10:50:30.033 +05:30 [INF] Executed DbCommand (41ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 
+2026-07-10 10:50:30.133 +05:30 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long. 
+2026-07-10 10:50:30.162 +05:30 [INF] Executed DbCommand (22ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result 
+2026-07-10 10:50:30.291 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END; 
+2026-07-10 10:50:30.309 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 
+2026-07-10 10:50:30.315 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]'); 
+2026-07-10 10:50:30.334 +05:30 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId]; 
+2026-07-10 10:50:30.351 +05:30 [INF] No migrations were applied. The database is already up to date. 
+2026-07-10 10:50:30.358 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result 
+2026-07-10 10:50:30.393 +05:30 [INF] Application started. Press Ctrl+C to shut down. 
+2026-07-10 10:50:30.396 +05:30 [INF] Hosting environment: Production 
+2026-07-10 10:50:30.399 +05:30 [INF] Content root path: C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\Services\Shipping 
+2026-07-10 10:50:32.474 +05:30 [INF] Shipping consumer listening on cloud queue: shipping_payment_completed_queue... 
+2026-07-10 11:30:08.129 +05:30 [INF] Payment verified for Order: "b8e51018-e5ce-4afe-bdc3-3b2ff73ac3df". Generating logistics allocation record... 
+2026-07-10 11:30:08.418 +05:30 [INF] Executed DbCommand (50ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 4000), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Guid), @p4='?' (Size = 4000), @p5='?' (Size = 50), @p6='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Shipments] ([Id], [Carrier], [CreatedAtUtc], [OrderId], [ShippingStatus], [TrackingNumber], [UserId])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6); 
+2026-07-10 11:30:08.435 +05:30 [INF] Logistics Tracking generated: AMR-20260710-CB51EBA0 
+2026-07-10 11:30:09.876 +05:30 [INF] RabbitMQ connection established. 
+2026-07-10 11:30:09.893 +05:30 [INF] Integration event "aef6b7fb-5eb9-46ae-ac3b-cf1b62148ff7" published to shipping.created 
+2026-07-10 11:42:50.711 +05:30 [INF] Executed DbCommand (36ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 
+2026-07-10 11:42:50.817 +05:30 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long. 
+2026-07-10 11:42:50.851 +05:30 [INF] Executed DbCommand (27ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result 
+2026-07-10 11:42:50.995 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END; 
+2026-07-10 11:42:51.016 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 
+2026-07-10 11:42:51.023 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]'); 
+2026-07-10 11:42:51.053 +05:30 [INF] Executed DbCommand (22ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId]; 
+2026-07-10 11:42:51.072 +05:30 [INF] No migrations were applied. The database is already up to date. 
+2026-07-10 11:42:51.077 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result 
+2026-07-10 11:42:51.113 +05:30 [INF] Application started. Press Ctrl+C to shut down. 
+2026-07-10 11:42:51.115 +05:30 [INF] Hosting environment: Production 
+2026-07-10 11:42:51.118 +05:30 [INF] Content root path: C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\Services\Shipping 
+2026-07-10 11:42:53.364 +05:30 [INF] Shipping consumer listening on cloud queue: shipping_payment_completed_queue... 
+2026-07-10 11:45:58.700 +05:30 [INF] Payment verified for Order: "49c6cfa4-26f1-42c0-b67f-60a6e020abda". Generating logistics allocation record... 
+2026-07-10 11:45:58.965 +05:30 [INF] Executed DbCommand (39ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 4000), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Guid), @p4='?' (Size = 4000), @p5='?' (Size = 50), @p6='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Shipments] ([Id], [Carrier], [CreatedAtUtc], [OrderId], [ShippingStatus], [TrackingNumber], [UserId])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6); 
+2026-07-10 11:45:58.984 +05:30 [INF] Logistics Tracking generated: AMR-20260710-0240D68E 
+2026-07-10 11:46:00.504 +05:30 [INF] RabbitMQ connection established. 
+2026-07-10 11:46:00.541 +05:30 [INF] Integration event "1dfc37c1-f804-4f3e-ac6d-de84da133b00" published to shipping.created 
+2026-07-10 11:46:27.068 +05:30 [INF] Payment verified for Order: "04ffdd81-5f9e-4954-bb13-450ffa171221". Generating logistics allocation record... 
+2026-07-10 11:46:27.129 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 4000), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Guid), @p4='?' (Size = 4000), @p5='?' (Size = 50), @p6='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Shipments] ([Id], [Carrier], [CreatedAtUtc], [OrderId], [ShippingStatus], [TrackingNumber], [UserId])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6); 
+2026-07-10 11:46:27.132 +05:30 [INF] Logistics Tracking generated: AMR-20260710-562B86B1 
+2026-07-10 11:46:27.133 +05:30 [INF] Integration event "5e75707d-e8a1-4ebd-9825-90b95724ec67" published to shipping.created 
+2026-07-10 13:25:04.036 +05:30 [INF] Executed DbCommand (50ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 
+2026-07-10 13:25:04.191 +05:30 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long. 
+2026-07-10 13:25:04.234 +05:30 [INF] Executed DbCommand (35ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result 
+2026-07-10 13:25:04.410 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END; 
+2026-07-10 13:25:04.441 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 
+2026-07-10 13:25:04.445 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]'); 
+2026-07-10 13:25:04.466 +05:30 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId]; 
+2026-07-10 13:25:04.489 +05:30 [INF] No migrations were applied. The database is already up to date. 
+2026-07-10 13:25:04.494 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result 
+2026-07-10 13:25:04.552 +05:30 [INF] Application started. Press Ctrl+C to shut down. 
+2026-07-10 13:25:04.569 +05:30 [INF] Hosting environment: Production 
+2026-07-10 13:25:04.573 +05:30 [INF] Content root path: C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\Services\Shipping 
+2026-07-10 13:25:07.047 +05:30 [INF] Shipping consumer listening on cloud queue: shipping_payment_completed_queue... 
+2026-07-10 14:13:48.976 +05:30 [INF] Executed DbCommand (34ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 
+2026-07-10 14:13:49.067 +05:30 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long. 
+2026-07-10 14:13:49.108 +05:30 [INF] Executed DbCommand (33ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result 
+2026-07-10 14:13:49.249 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END; 
+2026-07-10 14:13:49.269 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 
+2026-07-10 14:13:49.275 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]'); 
+2026-07-10 14:13:49.293 +05:30 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId]; 
+2026-07-10 14:13:49.313 +05:30 [INF] No migrations were applied. The database is already up to date. 
+2026-07-10 14:13:49.322 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result 
+2026-07-10 14:13:49.368 +05:30 [INF] Application started. Press Ctrl+C to shut down. 
+2026-07-10 14:13:49.372 +05:30 [INF] Hosting environment: Production 
+2026-07-10 14:13:49.375 +05:30 [INF] Content root path: C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\Services\Shipping 
+2026-07-10 14:13:51.548 +05:30 [INF] Shipping consumer listening on cloud queue: shipping_payment_completed_queue... 
+2026-07-10 14:14:47.674 +05:30 [INF] Executed DbCommand (48ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 
+2026-07-10 14:14:47.917 +05:30 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long. 
+2026-07-10 14:14:47.968 +05:30 [INF] Executed DbCommand (41ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result 
+2026-07-10 14:14:48.158 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END; 
+2026-07-10 14:14:48.190 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 
+2026-07-10 14:14:48.202 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]'); 
+2026-07-10 14:14:48.225 +05:30 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId]; 
+2026-07-10 14:14:48.270 +05:30 [INF] No migrations were applied. The database is already up to date. 
+2026-07-10 14:14:48.279 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result 
+2026-07-10 14:14:48.348 +05:30 [INF] Application started. Press Ctrl+C to shut down. 
+2026-07-10 14:14:48.402 +05:30 [INF] Hosting environment: Production 
+2026-07-10 14:14:48.438 +05:30 [INF] Content root path: C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\Services\Shipping 
+2026-07-10 14:14:51.498 +05:30 [INF] Shipping consumer listening on cloud queue: shipping_payment_completed_queue... 
+2026-07-10 14:37:41.828 +05:30 [INF] Payment verified for Order: "07722b1d-e97b-499f-bded-3d9793cb6183". Generating logistics allocation record... 
+2026-07-10 14:37:42.261 +05:30 [INF] Executed DbCommand (55ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 4000), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Guid), @p4='?' (Size = 4000), @p5='?' (Size = 50), @p6='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Shipments] ([Id], [Carrier], [CreatedAtUtc], [OrderId], [ShippingStatus], [TrackingNumber], [UserId])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6); 
+2026-07-10 14:37:42.281 +05:30 [INF] Logistics Tracking generated: AMR-20260710-7F84B788 
+2026-07-10 14:37:43.865 +05:30 [INF] RabbitMQ connection established. 
+2026-07-10 14:37:43.894 +05:30 [INF] Integration event "cf617ba5-cfc9-4945-93db-b4139f00b8b8" published to shipping.created 

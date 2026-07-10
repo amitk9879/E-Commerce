@@ -1,0 +1,120 @@
+.card {
+  border-radius: 18px;
+}
+
+.table th {
+  font-weight: 600;
+  color: #6c757d;
+  padding: 18px;
+}
+
+.table td {
+  padding: 18px;
+}
+
+.table tbody tr:hover {
+  background: #f8f9fa;
+}
+
+.badge {
+  font-size: 13px;
+  padding: 8px 12px;
+}
+
+.btn-primary {
+  border-radius: 25px;
+}
+
+/* Real-time Order Details Popup Modal Styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.45); /* Slate 900 tint */
+  backdrop-filter: blur(10px);
+  z-index: 1050;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.modal-card {
+  background: #ffffff;
+  border-radius: 1.25rem;
+  width: 92%;
+  max-width: 680px;
+  max-height: 88vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  padding: 2.25rem;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.detail-card {
+  background: #f8fafc; /* Slate 50 */
+  height: 100%;
+  transition: all 0.2s ease-in-out;
+}
+
+.detail-card:hover {
+  background: #f1f5f9; /* Slate 100 */
+  border-color: #cbd5e1 !important; /* Slate 300 */
+  transform: translateY(-2px);
+}
+
+.clickable-order-id {
+  color: #2563eb; /* Royal Blue */
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  transition: color 0.15s ease;
+}
+
+.clickable-order-id:hover {
+  color: #1d4ed8;
+  text-decoration-style: solid;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Custom Scrollbar for Modal Card */
+.modal-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-card::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 8px;
+}
+
+.modal-card::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 8px;
+}
+
+.modal-card::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

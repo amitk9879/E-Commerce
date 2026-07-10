@@ -1,0 +1,20 @@
+<div class="card p-3 bg-dark text-light border-0 shadow-sm font-monospace" style="min-height: 250px;">
+  <div class="d-flex justify-content-between align-items-center border-bottom border-secondary pb-2 mb-3">
+    <h6 class="fw-bold m-0 text-white-50"><i class="bi bi-terminal-fill text-warning me-1"></i> Centralized Serilog Structured Stream</h6>
+    <span class="badge bg-secondary font-monospace" style="font-size: 10px;">Environment: Local Development</span>
+  </div>
+
+  <div class="log-terminal-box">
+    @for (log of systemLogs(); track log.correlationId) {
+      <div class="log-line mb-2 p-1 rounded">
+        <span class="text-muted">[{{ log.timestamp | date:'HH:mm:ss.fff' }}]</span>
+        <span class="mx-1 font-weight-bold" [ngClass]="{'text-info': log.level==='INFORMATION', 'text-warning': log.level==='WARNING', 'text-danger fw-bold': log.level==='EXCEPTION'}">
+          {{ log.level }}
+        </span>
+        <span class="text-success">[{{ log.service }}]</span>
+        <span class="text-white-50 small font-monospace mx-1">(ID: {{ log.correlationId }})</span>
+        <span class="text-white">{{ log.message }}</span>
+      </div>
+    }
+  </div>
+</div>

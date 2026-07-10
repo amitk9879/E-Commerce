@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/BuildingBlocks/">
+    <Project Path="BuildingBlocks/EventBus/EventBus.csproj" />
+    <Project Path="BuildingBlocks/SharedKernel/SharedKernel.csproj" />
+  </Folder>
+  <Folder Name="/Services/">
+    <Project Path="Services/Catalog.API/Catalog.API.csproj" Id="5bd60a03-2a16-40f6-b9ed-5e89d2361561" />
+    <Project Path="Services/Gateway/Gateway.csproj" Id="1654984d-8748-4ae5-b21a-c4b1a364ecdb" />
+    <Project Path="Services/Identity.API/Identity.API.csproj" Id="ac23f5a1-f0bc-49fc-bbc1-7c91c28ebf85" />
+    <Project Path="Services/Notification.API/Notification.API.csproj" Id="cbdd2476-2868-4f5f-8d33-62fa32affb9a" />
+    <Project Path="Services/Ordering.API/Ordering.API.csproj" Id="24027a03-ed85-4abf-b9f7-42c278949682" />
+    <Project Path="Services/Payment/Payment.csproj" Id="91a6ac6b-f467-4ed4-bb4b-684a46cf532d" />
+    <Project Path="Services/Shipping/Shipping.csproj" Id="dab96ff2-b7bd-41b4-a2a7-fbdc0e9ae390" />
+  </Folder>
+</Solution>

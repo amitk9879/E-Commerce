@@ -1,0 +1,158 @@
+<div class="catalog-container">
+  <div class="catalog-header">
+    <div class="title-block">
+      <h2>Product Catalog</h2>
+      <p class="subtitle">Displaying {{ filteredProducts().length }} available items</p>
+    </div>
+
+    <div class="search-block">
+      <div class="search-input-wrapper">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="search-icon">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.603 10.601Z" />
+        </svg>
+        <input
+          type="text"
+          placeholder="Search records instantly..."
+          [value]="searchText()"
+          (input)="onSearchInput($event)" />
+      </div>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading product catalog...</p>
+    </div>
+  } @else if (loadError()) {
+    <div class="error-state">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="error-icon">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+      </svg>
+      <h5>Failed to Load Products</h5>
+      <p>Could not connect to the server. Please try again later.</p>
+      <button class="btn-retry" (click)="loadNextPage()">Retry</button>
+    </div>
+  } @else if (filteredProducts().length === 0) {
+    <div class="empty-state">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="empty-icon">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.603 10.601Z" />
+      </svg>
+      <h5>No Matching Records Found</h5>
+      <p>Try modifying your search term parameters to locate catalog data items.</p>
+    </div>
+  } @else {
+    <div class="catalog-grid">
+      @for (product of filteredProducts(); track product.id) {
+        <div class="product-card">
+
+          <div class="card-image-wrapper" [class.image-failed]="!product.imageUrl">
+            @if (product.imageUrl) {
+              <img
+                [src]="getImageUrl(product)"
+                [alt]="product.name"
+                class="product-image"
+                loading="lazy"
+                (error)="onImageError($event)"
+                (load)="onImageLoaded($event)" />
+            } @else {
+              <div class="image-placeholder">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="placeholder-icon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.41a2.25 2.25 0 0 1 3.182 0l2.909 2.91m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                </svg>
+              </div>
+            }
+          </div>
+
+          <div class="card-body">
+            <div class="meta-row">
+              <span class="category-badge">{{ product.category }}</span>
+              <span class="sku-tag">SKU: {{ getSku(product) }}</span>
+            </div>
+
+            <h3 class="product-title" [title]="product.name">{{ product.name }}</h3>
+            <p class="product-desc">{{ product.description }}</p>
+          </div>
+
+          <div class="card-footer">
+            <div class="price-wrapper">
+              <span class="price-label">UNIT PRICE</span>
+              <span class="price-value">${{ product.price.toFixed(2) }}</span>
+            </div>
+
+            <div class="stock-indicator" [class.out-of-stock]="product.stockQuantity <= 0">
+              <span class="stock-dot"></span>
+              <span class="stock-text">
+                @if (product.stockQuantity > 0) {
+                  {{ product.stockQuantity }} in stock
+                } @else {
+                  Out of stock
+                }
+              </span>
+            </div>
+          </div>
+
+          <div class="card-action">
+            @if (product.stockQuantity <= 0) {
+              <button class="btn-add-cart" disabled>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="btn-icon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                <span>Out of Stock</span>
+              </button>
+            } @else if (getCartQty(product.id) === 0) {
+              <button class="btn-add-cart" (click)="onAddToCart(product)">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="btn-icon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                <span>Add to Cart</span>
+              </button>
+            } @else {
+              <div class="cart-stepper">
+                <button class="stepper-btn" (click)="onDecrement(product.id)">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="stepper-icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                  </svg>
+                </button>
+                <span class="stepper-value">{{ getCartQty(product.id) }}</span>
+                <button class="stepper-btn" (click)="onIncrement(product)">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="stepper-icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                  </svg>
+                </button>
+              </div>
+            }
+          </div>
+
+        </div>
+      }
+    </div>
+
+    @if (loadingMore()) {
+      <div class="loading-more">
+        <div class="spinner"></div>
+        <p>Loading more products…</p>
+      </div>
+    }
+
+    @if (!hasMore() && products().length > 0) {
+      <div class="all-loaded">
+        <p>You've reached the end of the catalog.</p>
+      </div>
+    }
+
+    @if (hasMore() && !loadingMore()) {
+      <div class="load-more-container">
+        <button class="btn-load-more" (click)="loadNextPage()">
+          <span>Load More Products</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="btn-icon-right">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+          </svg>
+        </button>
+      </div>
+    }
+
+    <!-- Scroll sentinel for IntersectionObserver alternative -->
+    <div #scrollSentinel class="scroll-sentinel"></div>
+  }
+</div>

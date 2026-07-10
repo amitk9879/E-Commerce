@@ -1,0 +1,625 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CBDD2476-2868-4F5F-8D33-62FA32AFFB9A}|Services\\Notification.API\\Notification.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\notification.api\\consumers\\notificationeventconsumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CBDD2476-2868-4F5F-8D33-62FA32AFFB9A}|Services\\Notification.API\\Notification.API.csproj|solutionrelative:services\\notification.api\\consumers\\notificationeventconsumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{24027A03-ED85-4ABF-B9F7-42C278949682}|Services\\Ordering.API\\Ordering.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\ordering.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{24027A03-ED85-4ABF-B9F7-42C278949682}|Services\\Ordering.API\\Ordering.API.csproj|solutionrelative:services\\ordering.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\identity.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|solutionrelative:services\\identity.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{24027A03-ED85-4ABF-B9F7-42C278949682}|Services\\Ordering.API\\Ordering.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\ordering.api\\domain\\entities\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{24027A03-ED85-4ABF-B9F7-42C278949682}|Services\\Ordering.API\\Ordering.API.csproj|solutionrelative:services\\ordering.api\\domain\\entities\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{24027A03-ED85-4ABF-B9F7-42C278949682}|Services\\Ordering.API\\Ordering.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\ordering.api\\application\\dtos\\orderdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{24027A03-ED85-4ABF-B9F7-42C278949682}|Services\\Ordering.API\\Ordering.API.csproj|solutionrelative:services\\ordering.api\\application\\dtos\\orderdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DAB96FF2-B7BD-41B4-A2A7-FBDC0E9AE390}|Services\\Shipping\\Shipping.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\shipping\\consumers\\paymentcompletedconsumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DAB96FF2-B7BD-41B4-A2A7-FBDC0E9AE390}|Services\\Shipping\\Shipping.csproj|solutionrelative:services\\shipping\\consumers\\paymentcompletedconsumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{24027A03-ED85-4ABF-B9F7-42C278949682}|Services\\Ordering.API\\Ordering.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\ordering.api\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{24027A03-ED85-4ABF-B9F7-42C278949682}|Services\\Ordering.API\\Ordering.API.csproj|solutionrelative:services\\ordering.api\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1654984D-8748-4AE5-B21A-C4B1A364ECDB}|Services\\Gateway\\Gateway.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\gateway\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{1654984D-8748-4AE5-B21A-C4B1A364ECDB}|Services\\Gateway\\Gateway.csproj|solutionrelative:services\\gateway\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7E6D0E7-E6BC-DEE9-9C68-7E83CD8D24E9}|BuildingBlocks\\EventBus\\EventBus.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\buildingblocks\\eventbus\\rabbitmqeventbus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7E6D0E7-E6BC-DEE9-9C68-7E83CD8D24E9}|BuildingBlocks\\EventBus\\EventBus.csproj|solutionrelative:buildingblocks\\eventbus\\rabbitmqeventbus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{24027A03-ED85-4ABF-B9F7-42C278949682}|Services\\Ordering.API\\Ordering.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\ordering.api\\infrastructure\\backgroundworkers\\outboxprocessorworker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{24027A03-ED85-4ABF-B9F7-42C278949682}|Services\\Ordering.API\\Ordering.API.csproj|solutionrelative:services\\ordering.api\\infrastructure\\backgroundworkers\\outboxprocessorworker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{24027A03-ED85-4ABF-B9F7-42C278949682}|Services\\Ordering.API\\Ordering.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\ordering.api\\domain\\entities\\orderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{24027A03-ED85-4ABF-B9F7-42C278949682}|Services\\Ordering.API\\Ordering.API.csproj|solutionrelative:services\\ordering.api\\domain\\entities\\orderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BD60A03-2A16-40F6-B9ED-5E89D2361561}|Services\\Catalog.API\\Catalog.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\catalog.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BD60A03-2A16-40F6-B9ED-5E89D2361561}|Services\\Catalog.API\\Catalog.API.csproj|solutionrelative:services\\catalog.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{24027A03-ED85-4ABF-B9F7-42C278949682}|Services\\Ordering.API\\Ordering.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\ordering.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{24027A03-ED85-4ABF-B9F7-42C278949682}|Services\\Ordering.API\\Ordering.API.csproj|solutionrelative:services\\ordering.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7E6D0E7-E6BC-DEE9-9C68-7E83CD8D24E9}|BuildingBlocks\\EventBus\\EventBus.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\buildingblocks\\eventbus\\events\\integrationevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7E6D0E7-E6BC-DEE9-9C68-7E83CD8D24E9}|BuildingBlocks\\EventBus\\EventBus.csproj|solutionrelative:buildingblocks\\eventbus\\events\\integrationevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{24027A03-ED85-4ABF-B9F7-42C278949682}|Services\\Ordering.API\\Ordering.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\ordering.api\\infrastructure\\data\\orderingdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{24027A03-ED85-4ABF-B9F7-42C278949682}|Services\\Ordering.API\\Ordering.API.csproj|solutionrelative:services\\ordering.api\\infrastructure\\data\\orderingdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{24027A03-ED85-4ABF-B9F7-42C278949682}|Services\\Ordering.API\\Ordering.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\ordering.api\\domain\\enums\\orderstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{24027A03-ED85-4ABF-B9F7-42C278949682}|Services\\Ordering.API\\Ordering.API.csproj|solutionrelative:services\\ordering.api\\domain\\enums\\orderstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BD60A03-2A16-40F6-B9ED-5E89D2361561}|Services\\Catalog.API\\Catalog.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\catalog.api\\controllers\\catalogcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BD60A03-2A16-40F6-B9ED-5E89D2361561}|Services\\Catalog.API\\Catalog.API.csproj|solutionrelative:services\\catalog.api\\controllers\\catalogcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\identity.api\\application\\handlers\\logincommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|solutionrelative:services\\identity.api\\application\\handlers\\logincommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\identity.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|solutionrelative:services\\identity.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\identity.api\\application\\dtos\\authdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|solutionrelative:services\\identity.api\\application\\dtos\\authdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BD60A03-2A16-40F6-B9ED-5E89D2361561}|Services\\Catalog.API\\Catalog.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\catalog.api\\application\\handlers\\getproductspaginatedqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BD60A03-2A16-40F6-B9ED-5E89D2361561}|Services\\Catalog.API\\Catalog.API.csproj|solutionrelative:services\\catalog.api\\application\\handlers\\getproductspaginatedqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BD60A03-2A16-40F6-B9ED-5E89D2361561}|Services\\Catalog.API\\Catalog.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\catalog.api\\application\\dtos\\catalogdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BD60A03-2A16-40F6-B9ED-5E89D2361561}|Services\\Catalog.API\\Catalog.API.csproj|solutionrelative:services\\catalog.api\\application\\dtos\\catalogdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BD60A03-2A16-40F6-B9ED-5E89D2361561}|Services\\Catalog.API\\Catalog.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\catalog.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{5BD60A03-2A16-40F6-B9ED-5E89D2361561}|Services\\Catalog.API\\Catalog.API.csproj|solutionrelative:services\\catalog.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\identity.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|solutionrelative:services\\identity.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91A6AC6B-F467-4ED4-BB4B-684A46CF532D}|Services\\Payment\\Payment.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\payment\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{91A6AC6B-F467-4ED4-BB4B-684A46CF532D}|Services\\Payment\\Payment.csproj|solutionrelative:services\\payment\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DAB96FF2-B7BD-41B4-A2A7-FBDC0E9AE390}|Services\\Shipping\\Shipping.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\shipping\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{DAB96FF2-B7BD-41B4-A2A7-FBDC0E9AE390}|Services\\Shipping\\Shipping.csproj|solutionrelative:services\\shipping\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\identity.api\\application\\validators\\registercommandvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|solutionrelative:services\\identity.api\\application\\validators\\registercommandvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\identity.api\\application\\validators\\logincommandvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|solutionrelative:services\\identity.api\\application\\validators\\logincommandvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\identity.api\\application\\handlers\\registercommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|solutionrelative:services\\identity.api\\application\\handlers\\registercommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\identity.api\\data\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|solutionrelative:services\\identity.api\\data\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\identity.api\\data\\identitydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|solutionrelative:services\\identity.api\\data\\identitydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\identity.api\\services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC23F5A1-F0BC-49FC-BBC1-7C91C28EBF85}|Services\\Identity.API\\Identity.API.csproj|solutionrelative:services\\identity.api\\services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBDD2476-2868-4F5F-8D33-62FA32AFFB9A}|Services\\Notification.API\\Notification.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\notification.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{CBDD2476-2868-4F5F-8D33-62FA32AFFB9A}|Services\\Notification.API\\Notification.API.csproj|solutionrelative:services\\notification.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBDD2476-2868-4F5F-8D33-62FA32AFFB9A}|Services\\Notification.API\\Notification.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\notification.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CBDD2476-2868-4F5F-8D33-62FA32AFFB9A}|Services\\Notification.API\\Notification.API.csproj|solutionrelative:services\\notification.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBDD2476-2868-4F5F-8D33-62FA32AFFB9A}|Services\\Notification.API\\Notification.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\notification.api\\hubs\\notificationhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CBDD2476-2868-4F5F-8D33-62FA32AFFB9A}|Services\\Notification.API\\Notification.API.csproj|solutionrelative:services\\notification.api\\hubs\\notificationhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBDD2476-2868-4F5F-8D33-62FA32AFFB9A}|Services\\Notification.API\\Notification.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\notification.api\\notification.api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{CBDD2476-2868-4F5F-8D33-62FA32AFFB9A}|Services\\Notification.API\\Notification.API.csproj|solutionrelative:services\\notification.api\\notification.api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{24027A03-ED85-4ABF-B9F7-42C278949682}|Services\\Ordering.API\\Ordering.API.csproj|c:\\users\\amitk\\onedrive\\documents\\project\\e-commerce\\backend\\airmastercommerce\\services\\ordering.api\\migrations\\20260709180304_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{24027A03-ED85-4ABF-B9F7-42C278949682}|Services\\Ordering.API\\Ordering.API.csproj|solutionrelative:services\\ordering.api\\migrations\\20260709180304_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Gateway\\appsettings.json",
+              "RelativeDocumentMoniker": "Services\\Gateway\\appsettings.json",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Gateway\\appsettings.json",
+              "RelativeToolTip": "Services\\Gateway\\appsettings.json",
+              "ViewState": "AgIAABAAAAAAAAAAAAAkwCwAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-07-07T20:49:13.477Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Order.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Ordering.API\\Domain\\Entities\\Order.cs",
+              "RelativeDocumentMoniker": "Services\\Ordering.API\\Domain\\Entities\\Order.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Ordering.API\\Domain\\Entities\\Order.cs",
+              "RelativeToolTip": "Services\\Ordering.API\\Domain\\Entities\\Order.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAnwBMAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-09T12:49:43.77Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Ordering.API\\Program.cs",
+              "RelativeDocumentMoniker": "Services\\Ordering.API\\Program.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Ordering.API\\Program.cs",
+              "RelativeToolTip": "Services\\Ordering.API\\Program.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAawC4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T17:39:45.739Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "20260709180304_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Ordering.API\\Migrations\\20260709180304_InitialCreate.cs",
+              "RelativeDocumentMoniker": "Services\\Ordering.API\\Migrations\\20260709180304_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Ordering.API\\Migrations\\20260709180304_InitialCreate.cs",
+              "RelativeToolTip": "Services\\Ordering.API\\Migrations\\20260709180304_InitialCreate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-09T18:03:05.052Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\Program.cs",
+              "RelativeDocumentMoniker": "Services\\Identity.API\\Program.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\Program.cs",
+              "RelativeToolTip": "Services\\Identity.API\\Program.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAawB8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T15:30:33.503Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Catalog.API\\Program.cs",
+              "RelativeDocumentMoniker": "Services\\Catalog.API\\Program.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Catalog.API\\Program.cs",
+              "RelativeToolTip": "Services\\Catalog.API\\Program.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACYAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-07T21:54:33.43Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "NotificationEventConsumer.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Notification.API\\Consumers\\NotificationEventConsumer.cs",
+              "RelativeDocumentMoniker": "Services\\Notification.API\\Consumers\\NotificationEventConsumer.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Notification.API\\Consumers\\NotificationEventConsumer.cs",
+              "RelativeToolTip": "Services\\Notification.API\\Consumers\\NotificationEventConsumer.cs",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAawHIAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T06:15:32.943Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "RabbitMQEventBus.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\BuildingBlocks\\EventBus\\RabbitMQEventBus.cs",
+              "RelativeDocumentMoniker": "BuildingBlocks\\EventBus\\RabbitMQEventBus.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\BuildingBlocks\\EventBus\\RabbitMQEventBus.cs",
+              "RelativeToolTip": "BuildingBlocks\\EventBus\\RabbitMQEventBus.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAASwEkAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T12:16:46.676Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "OutboxProcessorWorker.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Ordering.API\\Infrastructure\\BackgroundWorkers\\OutboxProcessorWorker.cs",
+              "RelativeDocumentMoniker": "Services\\Ordering.API\\Infrastructure\\BackgroundWorkers\\OutboxProcessorWorker.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Ordering.API\\Infrastructure\\BackgroundWorkers\\OutboxProcessorWorker.cs",
+              "RelativeToolTip": "Services\\Ordering.API\\Infrastructure\\BackgroundWorkers\\OutboxProcessorWorker.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAASwBgAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T17:45:11.535Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "OrdersController.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Ordering.API\\Controllers\\OrdersController.cs",
+              "RelativeDocumentMoniker": "Services\\Ordering.API\\Controllers\\OrdersController.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Ordering.API\\Controllers\\OrdersController.cs",
+              "RelativeToolTip": "Services\\Ordering.API\\Controllers\\OrdersController.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAAABQAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-07T21:50:07.81Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "OrderDtos.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Ordering.API\\Application\\DTOs\\OrderDtos.cs",
+              "RelativeDocumentMoniker": "Services\\Ordering.API\\Application\\DTOs\\OrderDtos.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Ordering.API\\Application\\DTOs\\OrderDtos.cs",
+              "RelativeToolTip": "Services\\Ordering.API\\Application\\DTOs\\OrderDtos.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAnwCQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-09T17:37:23.122Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PaymentCompletedConsumer.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Shipping\\Consumers\\PaymentCompletedConsumer.cs",
+              "RelativeDocumentMoniker": "Services\\Shipping\\Consumers\\PaymentCompletedConsumer.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Shipping\\Consumers\\PaymentCompletedConsumer.cs",
+              "RelativeToolTip": "Services\\Shipping\\Consumers\\PaymentCompletedConsumer.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAIA1wDYAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-09T16:30:37.979Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Ordering.API\\appsettings.json",
+              "RelativeDocumentMoniker": "Services\\Ordering.API\\appsettings.json",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Ordering.API\\appsettings.json",
+              "RelativeToolTip": "Services\\Ordering.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-07-08T06:23:50.695Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "OrderingDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Ordering.API\\Infrastructure\\Data\\OrderingDbContext.cs",
+              "RelativeDocumentMoniker": "Services\\Ordering.API\\Infrastructure\\Data\\OrderingDbContext.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Ordering.API\\Infrastructure\\Data\\OrderingDbContext.cs",
+              "RelativeToolTip": "Services\\Ordering.API\\Infrastructure\\Data\\OrderingDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-09T12:52:19.613Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "IntegrationEvent.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\BuildingBlocks\\EventBus\\Events\\IntegrationEvent.cs",
+              "RelativeDocumentMoniker": "BuildingBlocks\\EventBus\\Events\\IntegrationEvent.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\BuildingBlocks\\EventBus\\Events\\IntegrationEvent.cs",
+              "RelativeToolTip": "BuildingBlocks\\EventBus\\Events\\IntegrationEvent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T12:17:24.374Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "OrderItem.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Ordering.API\\Domain\\Entities\\OrderItem.cs",
+              "RelativeDocumentMoniker": "Services\\Ordering.API\\Domain\\Entities\\OrderItem.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Ordering.API\\Domain\\Entities\\OrderItem.cs",
+              "RelativeToolTip": "Services\\Ordering.API\\Domain\\Entities\\OrderItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAQAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-09T12:49:41.304Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "OrderStatus.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Ordering.API\\Domain\\Enums\\OrderStatus.cs",
+              "RelativeDocumentMoniker": "Services\\Ordering.API\\Domain\\Enums\\OrderStatus.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Ordering.API\\Domain\\Enums\\OrderStatus.cs",
+              "RelativeToolTip": "Services\\Ordering.API\\Domain\\Enums\\OrderStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-09T12:49:37.338Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "LoginCommandHandler.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\Application\\Handlers\\LoginCommandHandler.cs",
+              "RelativeDocumentMoniker": "Services\\Identity.API\\Application\\Handlers\\LoginCommandHandler.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\Application\\Handlers\\LoginCommandHandler.cs",
+              "RelativeToolTip": "Services\\Identity.API\\Application\\Handlers\\LoginCommandHandler.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAACYAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T15:30:01.148Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "AuthDtos.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\Application\\DTOs\\AuthDtos.cs",
+              "RelativeDocumentMoniker": "Services\\Identity.API\\Application\\DTOs\\AuthDtos.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\Application\\DTOs\\AuthDtos.cs",
+              "RelativeToolTip": "Services\\Identity.API\\Application\\DTOs\\AuthDtos.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T15:29:50.667Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Shipping\\appsettings.json",
+              "RelativeDocumentMoniker": "Services\\Shipping\\appsettings.json",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Shipping\\appsettings.json",
+              "RelativeToolTip": "Services\\Shipping\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAACNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-07-08T17:49:39.729Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "RegisterCommandValidator.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\Application\\Validators\\RegisterCommandValidator.cs",
+              "RelativeDocumentMoniker": "Services\\Identity.API\\Application\\Validators\\RegisterCommandValidator.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\Application\\Validators\\RegisterCommandValidator.cs",
+              "RelativeToolTip": "Services\\Identity.API\\Application\\Validators\\RegisterCommandValidator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T15:30:19.011Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Services\\Identity.API\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Services\\Identity.API\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAASwBsAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-07T21:49:49.404Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "CatalogController.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Catalog.API\\Controllers\\CatalogController.cs",
+              "RelativeDocumentMoniker": "Services\\Catalog.API\\Controllers\\CatalogController.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Catalog.API\\Controllers\\CatalogController.cs",
+              "RelativeToolTip": "Services\\Catalog.API\\Controllers\\CatalogController.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAYwBEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-07T21:49:15.808Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "GetProductsPaginatedQueryHandler.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Catalog.API\\Application\\Handlers\\GetProductsPaginatedQueryHandler.cs",
+              "RelativeDocumentMoniker": "Services\\Catalog.API\\Application\\Handlers\\GetProductsPaginatedQueryHandler.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Catalog.API\\Application\\Handlers\\GetProductsPaginatedQueryHandler.cs",
+              "RelativeToolTip": "Services\\Catalog.API\\Application\\Handlers\\GetProductsPaginatedQueryHandler.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-09T09:20:48.649Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Catalog.API\\appsettings.json",
+              "RelativeDocumentMoniker": "Services\\Catalog.API\\appsettings.json",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Catalog.API\\appsettings.json",
+              "RelativeToolTip": "Services\\Catalog.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAACMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-07-08T17:51:19.978Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "CatalogDtos.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Catalog.API\\Application\\DTOs\\CatalogDtos.cs",
+              "RelativeDocumentMoniker": "Services\\Catalog.API\\Application\\DTOs\\CatalogDtos.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Catalog.API\\Application\\DTOs\\CatalogDtos.cs",
+              "RelativeToolTip": "Services\\Catalog.API\\Application\\DTOs\\CatalogDtos.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-09T09:14:30.745Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Payment\\appsettings.json",
+              "RelativeDocumentMoniker": "Services\\Payment\\appsettings.json",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Payment\\appsettings.json",
+              "RelativeToolTip": "Services\\Payment\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAACMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-07-08T17:50:11.766Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\appsettings.json",
+              "RelativeDocumentMoniker": "Services\\Identity.API\\appsettings.json",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\appsettings.json",
+              "RelativeToolTip": "Services\\Identity.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAACNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-07-08T15:30:26.539Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "LoginCommandValidator.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\Application\\Validators\\LoginCommandValidator.cs",
+              "RelativeDocumentMoniker": "Services\\Identity.API\\Application\\Validators\\LoginCommandValidator.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\Application\\Validators\\LoginCommandValidator.cs",
+              "RelativeToolTip": "Services\\Identity.API\\Application\\Validators\\LoginCommandValidator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T15:30:12.766Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "RegisterCommandHandler.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\Application\\Handlers\\RegisterCommandHandler.cs",
+              "RelativeDocumentMoniker": "Services\\Identity.API\\Application\\Handlers\\RegisterCommandHandler.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\Application\\Handlers\\RegisterCommandHandler.cs",
+              "RelativeToolTip": "Services\\Identity.API\\Application\\Handlers\\RegisterCommandHandler.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAkwCYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T15:30:06.597Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\Data\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "Services\\Identity.API\\Data\\Entities\\User.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\Data\\Entities\\User.cs",
+              "RelativeToolTip": "Services\\Identity.API\\Data\\Entities\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T15:29:39.486Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "IdentityDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\Data\\IdentityDbContext.cs",
+              "RelativeDocumentMoniker": "Services\\Identity.API\\Data\\IdentityDbContext.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\Data\\IdentityDbContext.cs",
+              "RelativeToolTip": "Services\\Identity.API\\Data\\IdentityDbContext.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAYwB0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T15:29:29.876Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "TokenService.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\Services\\TokenService.cs",
+              "RelativeDocumentMoniker": "Services\\Identity.API\\Services\\TokenService.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Identity.API\\Services\\TokenService.cs",
+              "RelativeToolTip": "Services\\Identity.API\\Services\\TokenService.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAkwDEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T15:29:13.231Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Notification.API\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Services\\Notification.API\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Notification.API\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Services\\Notification.API\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-07-08T06:01:34.344Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Notification.API\\Program.cs",
+              "RelativeDocumentMoniker": "Services\\Notification.API\\Program.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Notification.API\\Program.cs",
+              "RelativeToolTip": "Services\\Notification.API\\Program.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T05:57:07.793Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "NotificationHub.cs",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Notification.API\\Hubs\\NotificationHub.cs",
+              "RelativeDocumentMoniker": "Services\\Notification.API\\Hubs\\NotificationHub.cs",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Notification.API\\Hubs\\NotificationHub.cs",
+              "RelativeToolTip": "Services\\Notification.API\\Hubs\\NotificationHub.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAgwCMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T05:56:43.398Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "Notification.API.http",
+              "DocumentMoniker": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Notification.API\\Notification.API.http",
+              "RelativeDocumentMoniker": "Services\\Notification.API\\Notification.API.http",
+              "ToolTip": "C:\\Users\\amitk\\OneDrive\\Documents\\Project\\E-Commerce\\backend\\AirmasterCommerce\\Services\\Notification.API\\Notification.API.http",
+              "RelativeToolTip": "Services\\Notification.API\\Notification.API.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2026-07-08T05:56:00.127Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+<nav class="navbar">
+    <div class="container">
+
+        <a class="navbar-brand" routerLink="/">
+            🚀 Airmaster<span class="text-primary">Commerce</span>
+        </a>
+
+        <div class="navbar-collapse">
+            <!-- <div class="navbar-nav">
+                <a class="nav-link" routerLink="/catalog" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact: true}">
+                    <i class="bi bi-grid-3x3-gap me-2"></i> Browse Products
+                </a>
+            </div> -->
+
+            <div class="navbar-actions">
+                @if (authService.isAuthenticated() && authService.currentUserRole() === 'Admin') {
+                <a class="nav-link" routerLink="/admin/dashboard" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact: true}">
+                    <i class="bi bi-speedometer2 me-1"></i>&nbsp;Dashboard
+                </a>
+                <a class="nav-link" routerLink="/admin/products" routerLinkActive="active">
+                    <i class="bi bi-box-seam me-1"></i>&nbsp;Products
+                </a>
+                <a class="nav-link" routerLink="/admin/orders" routerLinkActive="active">
+                    <i class="bi bi-receipt me-1"></i>&nbsp;Orders
+                </a>
+                <a class="nav-link" routerLink="/admin/customers" routerLinkActive="active">
+                    <i class="bi bi-people me-1"></i>&nbsp;Customers
+                </a>
+                }
+                @else if (authService.isAuthenticated() && authService.currentUserRole() === 'Customer') {
+                <a class="nav-link" routerLink="/customer/orders" routerLinkActive="active">
+                    <i class="bi bi-clock-history me-2"></i>&nbsp;My Orders
+                </a>
+                <button (click)="toggleCart(true)" class="btn-cart position-relative">
+                    <i class="bi bi-cart3"></i>
+                    @if (cartCount() > 0) {
+                    <span
+                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-count-badge">
+                        {{ cartCount() }}
+                    </span>
+                    }
+                </button>
+                }
+                @else if(!authService.isAuthenticated()){
+                <button (click)="toggleCart(true)" class="btn-cart position-relative">
+                    <i class="bi bi-cart3"></i>
+                    @if (cartCount() > 0) {
+                    <span
+                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-count-badge">
+                        {{ cartCount() }}
+                    </span>
+                    }
+                </button>
+                }
+
+                @if (authService.isAuthenticated()) {
+                <div class="user-meta d-none d-md-block">
+                    <span class="role-badge">Role: {{ authService.currentUserRole() }}</span>
+                    <strong class="user-email">{{ authService.currentUserEmail() }}</strong>
+                </div>
+
+                <button (click)="onLogout()" class="btn-logout">
+                    <i class="bi bi-box-arrow-right"></i>
+                </button>
+                } @else {
+                <a routerLink="/auth/login" class="btn-signin">
+                    <i class="bi bi-box-arrow-in-right me-1"></i> Sign In
+                </a>
+                }
+            </div>
+        </div>
+
+    </div>
+</nav>
+
+@if (isCartOpen()) {
+<div class="cart-backdrop" (click)="toggleCart(false)"></div>
+
+<div class="cart-drawer">
+    <div class="drawer-header">
+        <h3 class="m-0 fs-5 fw-bold text-dark">Your Basket ({{ cartCount() }})</h3>
+        <button type="button" class="close-btn" (click)="toggleCart(false)" aria-label="Close cart">
+            <i class="bi bi-x-lg"></i>
+        </button>
+    </div>
+
+    <div class="drawer-body">
+        @if (cartItems().length === 0) {
+        <div class="text-center text-muted pt-5 mt-4">
+            <i class="bi bi-bag-x text-secondary fs-2 d-block mb-3"></i>
+            <p class="text-secondary small m-0">Your shopping basket is completely empty.</p>
+        </div>
+        } @else {
+        @for (item of cartItems(); track item.product.id) {
+        <div class="cart-item-row">
+            <div class="item-info">
+                <h4 class="item-title" title="{{ item.product.name }}">{{ item.product.name }}</h4>
+                <span class="item-price">${{ (item.product.price * item.quantity).toFixed(2) }}</span>
+            </div>
+
+            <div class="stepper-controls">
+                <button class="stepper-btn" (click)="onUpdateQty(item.product.id, -1)">
+                    <i class="bi bi-dash"></i>
+                </button>
+                <span class="stepper-value">{{ item.quantity }}</span>
+                <button class="stepper-btn" (click)="onUpdateQty(item.product.id, 1)">
+                    <i class="bi bi-plus"></i>
+                </button>
+            </div>
+        </div>
+        }
+        }
+    </div>
+
+    @if (cartItems().length > 0) {
+    <div class="drawer-footer">
+        <div class="footer-summary">
+            <span class="text-secondary small">Estimated Total:</span>
+            <strong class="total-amount">${{ cartTotal().toFixed(2) }}</strong>
+        </div>
+        <button class="btn-checkout" (click)="onProceedToCheckout()">
+            <span>Proceed To Checkout</span>
+            <i class="bi bi-arrow-right"></i>
+        </button>
+    </div>
+    }
+</div>
+}

@@ -1,0 +1,369 @@
+/* ==========================================================================
+   GLOBAL APP STYLES & INTERACTIVE UI ELEMENTS
+   ========================================================================== */
+
+/* --- Toastr Slide In/Out Keyframe Animations --- */
+@keyframes toastSlideIn {
+    from {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes toastFadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}
+
+/* Bind Keyframes directly to ngx-toastr classes */
+.ngx-toastr {
+    animation: toastSlideIn 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 8px !important;
+}
+
+/* Handles smooth removal when the toast expires */
+.toast-toastr-container :first-child {
+    transition: all 0.3s ease;
+}
+
+/* --- Form Validation Keyframes --- */
+@keyframes validationPopIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.95);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes inputShakeError {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20%,
+    60% {
+        transform: translateX(-4px);
+    }
+
+    40%,
+    80% {
+        transform: translateX(4px);
+    }
+}
+
+/* --- Validation Element Class Styles --- */
+.error-msg {
+    display: block;
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 0.35rem;
+    animation: validationPopIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transform-origin: top left;
+}
+
+/* Apply a subtle shake effect to invalid input boxes when touched */
+input.is-invalid {
+    border-color: #dc3545 !important;
+    background-color: #fff8f8;
+    animation: inputShakeError 0.4s ease-in-out;
+}
+
+/* --- Core Form Element Improvements --- */
+.form-group {
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group input {
+    padding: 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+/* Scale background focus smoothly */
+.form-group input:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+/* Dynamic State Processing on Buttons */
+button[type="submit"] {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button[type="submit"]:not(:disabled):hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+button[type="submit"]:not(:disabled):active {
+    transform: translateY(1px);
+}
+
+button[type="submit"]:disabled {
+    background-color: #e9ecef;
+    color: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+
+/* ==========================================================================
+   MINIMALISTIC SLIDING DRAWER CART SYSTEM (SOLID & BALANCED)
+   ========================================================================== */
+@keyframes fIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes sLeft {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+.cart-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+    animation: fIn 0.2s ease-out forwards;
+}
+
+.cart-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 400px;
+    height: 100vh;
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    box-shadow: -5px 0 30px rgba(15, 23, 42, 0.15);
+    z-index: 2001;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    animation: sLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.drawer-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+}
+
+.drawer-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    background-color: #ffffff;
+}
+
+/* --- Cart Rows Structural Alignment Formatting --- */
+.cart-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.item-info {
+    max-width: 230px;
+}
+
+.item-title {
+    margin: 0 0 0.25rem 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1e293b;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.item-price {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #64748b;
+}
+
+/* Micro Counter Quantities Design */
+.stepper-controls {
+    display: flex;
+    align-items: center;
+    background-color: #f1f5f9;
+    padding: 0.25rem;
+    border-radius: 6px;
+    gap: 0.5rem;
+}
+
+.stepper-btn {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #0f172a;
+    width: 30px;
+    height: 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    padding: 0;
+}
+
+.stepper-value {
+    font-size: 0.85rem;
+    font-weight: 600;
+    min-width: 16px;
+    text-align: center;
+    color: #0f172a;
+}
+
+/* Footer UI Block Formatting */
+.drawer-footer {
+    border-top: 1px solid #f1f5f9;
+    padding: 1.5rem;
+    background-color: #f8fafc;
+}
+
+.footer-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+
+.total-amount {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.btn-checkout {
+    width: 100%;
+    background-color: #4f46e5;
+    color: #ffffff;
+    border: none;
+    padding: 0.85rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background-color 0.15s ease;
+}
+
+.btn-checkout:hover {
+    background-color: #4338ca;
+}
+
+/* Clean Initial Button State */
+.btn-catalog-add {
+    background-color: #0f172a;
+    color: #ffffff;
+    border: none;
+    padding: 0.55rem 1.15rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    transition: background-color 0.15s ease;
+}
+
+.btn-catalog-add:hover {
+    background-color: #1e293b;
+}
+
+/* Stepper Framework Row Base */
+.catalog-stepper {
+    display: flex;
+    align-items: center;
+    background-color: #f1f5f9;
+    padding: 0.3rem;
+    border-radius: 6px;
+    gap: 0.75rem;
+    border: 1px solid #e2e8f0;
+}
+
+.catalog-stepper-btn {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    color: #0f172a;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    padding: 0;
+    transition: all 0.15s ease;
+}
+
+.catalog-stepper-btn:hover {
+    background-color: #f8fafc;
+    border-color: #94a3b8;
+}
+
+.catalog-stepper-value {
+    font-size: 0.9rem;
+    font-weight: 700;
+    min-width: 20px;
+    text-align: center;
+    color: #0f172a;
+}

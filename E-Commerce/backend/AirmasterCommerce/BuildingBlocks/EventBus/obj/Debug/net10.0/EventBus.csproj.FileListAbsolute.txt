@@ -1,0 +1,17 @@
+C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\BuildingBlocks\EventBus\bin\Debug\net10.0\EventBus.deps.json
+C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\BuildingBlocks\EventBus\bin\Debug\net10.0\EventBus.dll
+C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\BuildingBlocks\EventBus\bin\Debug\net10.0\EventBus.pdb
+C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\BuildingBlocks\EventBus\bin\Debug\net10.0\SharedKernel.dll
+C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\BuildingBlocks\EventBus\bin\Debug\net10.0\SharedKernel.pdb
+C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\BuildingBlocks\EventBus\obj\Debug\net10.0\EventBus.csproj.AssemblyReference.cache
+C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\BuildingBlocks\EventBus\obj\Debug\net10.0\EventBus.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\BuildingBlocks\EventBus\obj\Debug\net10.0\EventBus.AssemblyInfoInputs.cache
+C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\BuildingBlocks\EventBus\obj\Debug\net10.0\EventBus.AssemblyInfo.cs
+C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\BuildingBlocks\EventBus\obj\Debug\net10.0\EventBus.csproj.CoreCompileInputs.cache
+C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\BuildingBlocks\EventBus\obj\Debug\net10.0\EventBus.csproj.Up2Date
+C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\BuildingBlocks\EventBus\obj\Debug\net10.0\EventBus.dll
+C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\BuildingBlocks\EventBus\obj\Debug\net10.0\refint\EventBus.dll
+C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\BuildingBlocks\EventBus\obj\Debug\net10.0\EventBus.pdb
+C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\BuildingBlocks\EventBus\obj\Debug\net10.0\ref\EventBus.dll
+C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\BuildingBlocks\EventBus\bin\Debug\net10.0\EventBus.runtimeconfig.json
+C:\Users\amitk\OneDrive\Documents\Project\E-Commerce\backend\AirmasterCommerce\BuildingBlocks\EventBus\obj\Debug\net10.0\EventBus.genruntimeconfig.cache
