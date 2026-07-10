@@ -1,3 +1,4 @@
+using EventBus.Events;
 using Microsoft.AspNetCore.SignalR;
 using Notification.API.Hubs;
 using RabbitMQ.Client;
@@ -8,9 +9,9 @@ using System.Text.Json;
 namespace Notification.API.Consumers
 {
     // Event models matching your existing infrastructure contracts
-    public record OrderCreatedNotificationEvent(Guid OrderId, Guid UserId, decimal TotalAmount);
-    public record PaymentCompletedNotificationEvent(Guid OrderId, Guid UserId, string TransactionId);
-    public record ShipmentCreatedNotificationEvent(Guid OrderId, string TrackingNumber, string Carrier);
+    public record OrderCreatedNotificationEvent(Guid OrderId, Guid UserId, decimal TotalAmount) : IntegrationEvent;
+    public record PaymentCompletedNotificationEvent(Guid OrderId, Guid UserId, string TransactionId) : IntegrationEvent;
+    public record ShipmentCreatedNotificationEvent(Guid OrderId, string TrackingNumber, string Carrier, string TransactionId) : IntegrationEvent;
 
     public sealed class NotificationEventConsumer : BackgroundService
     {
@@ -22,7 +23,7 @@ namespace Notification.API.Consumers
         private IChannel? _channel;
 
         private const string ExchangeName = "AirmasterCentralExchange";
-        private const string QueueName = "notification_realtime_stream_queue";
+        private const string QueueName = "notification_realtime_stream_queue_v2";
 
         public NotificationEventConsumer(
             IHubContext<NotificationHub> hubContext,
@@ -86,7 +87,7 @@ namespace Notification.API.Consumers
                             if (paymentData != null)
                             {
                                 await _hubContext.Clients.Group(paymentData.UserId.ToString())
-                                    .SendAsync("ReceiveNotification", new { status = "Payment Processed", orderId = paymentData.OrderId, transactionId = paymentData.TransactionId });
+                                    .SendAsync("ReceiveNotification", new { status = "Payment Approved", orderId = paymentData.OrderId, transactionId = paymentData.TransactionId });
                             }
                             break;
 
@@ -97,7 +98,7 @@ namespace Notification.API.Consumers
                             if (shipData != null)
                             {
                                 await _hubContext.Clients.All
-                                    .SendAsync("ReceiveNotification", new { status = "Shipped", orderId = shipData.OrderId, tracking = shipData.TrackingNumber, carrier = shipData.Carrier });
+                                    .SendAsync("ReceiveNotification", new { status = "Shipped", orderId = shipData.OrderId, tracking = shipData.TrackingNumber, carrier = shipData.Carrier, transactionId = shipData.TransactionId });
                             }
                             break;
                     }

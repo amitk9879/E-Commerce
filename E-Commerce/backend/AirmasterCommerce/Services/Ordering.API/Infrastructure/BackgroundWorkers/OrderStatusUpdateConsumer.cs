@@ -9,9 +9,6 @@ using System.Text.Json;
 
 namespace Ordering.API.Infrastructure.BackgroundWorkers
 {
-    public record PaymentCompletedIntegrationEvent(Guid OrderId, Guid UserId, string TransactionId);
-    public record ShipmentCreatedIntegrationEvent(Guid OrderId, string TrackingNumber, string Carrier);
-
     public sealed class OrderStatusUpdateConsumer : BackgroundService
     {
         private readonly IServiceProvider _serviceProvider;
@@ -22,7 +19,7 @@ namespace Ordering.API.Infrastructure.BackgroundWorkers
         private IChannel? _channel;
 
         private const string ExchangeName = "AirmasterCentralExchange";
-        private const string QueueName = "ordering_status_update_queue";
+        private const string QueueName = "ordering_status_update_queue_v2";
 
         public OrderStatusUpdateConsumer(
             IServiceProvider serviceProvider,

@@ -19,24 +19,27 @@ namespace Payment.Consumers
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<OrderCreatedConsumer> _logger;
         private readonly RabbitMQEventBus _eventBus;
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly string _connectionString;
 
         private IConnection? _connection;
         private IChannel? _channel;
 
         private const string ExchangeName = "AirmasterCentralExchange";
-        private const string QueueName = "payment_order_created_queue";
+        private const string QueueName = "payment_order_created_queue_v2";
         private const string RoutingKey = "order.created";
 
         public OrderCreatedConsumer(
             IServiceProvider serviceProvider,
             ILogger<OrderCreatedConsumer> logger,
             IConfiguration configuration,
-            RabbitMQEventBus eventBus)
+            RabbitMQEventBus eventBus,
+            IHttpClientFactory httpClientFactory)
         {
             _serviceProvider = serviceProvider;
             _logger = logger;
             _eventBus = eventBus;
+            _httpClientFactory = httpClientFactory;
             // Fallback default allows clean local checking configurations
             _connectionString = configuration["RabbitMQ:ConnectionString"] ?? "amqps://yxcobcwd:msbIdDrx5pZn18UXuFYxyvc6inhz0Msh@fly.rmq.cloudamqp.com/yxcobcwd";
         }
@@ -52,8 +55,21 @@ namespace Payment.Consumers
             _connection = await factory.CreateConnectionAsync(stoppingToken);
             _channel = await _connection.CreateChannelAsync(cancellationToken: stoppingToken);
 
+            // Configure Dead-Letter Exchange (DLX)
+            var dlxName = "AirmasterCentralExchange.DLX";
+            var dlqName = QueueName + ".dlq";
+            await _channel.ExchangeDeclareAsync(dlxName, ExchangeType.Fanout, durable: true, cancellationToken: stoppingToken);
+            await _channel.QueueDeclareAsync(dlqName, durable: true, exclusive: false, autoDelete: false, cancellationToken: stoppingToken);
+            await _channel.QueueBindAsync(dlqName, dlxName, "", cancellationToken: stoppingToken);
+            // Configure main queue to route to DLX on failure
+            var queueArgs = new Dictionary<string, object?>
+            {
+                { "x-dead-letter-exchange", dlxName }
+            };
+
+
             await _channel.ExchangeDeclareAsync(ExchangeName, ExchangeType.Topic, durable: true, cancellationToken: stoppingToken);
-            await _channel.QueueDeclareAsync(QueueName, durable: true, exclusive: false, autoDelete: false, cancellationToken: stoppingToken);
+            await _channel.QueueDeclareAsync(QueueName, durable: true, exclusive: false, autoDelete: false, arguments: queueArgs, cancellationToken: stoppingToken);
             await _channel.QueueBindAsync(QueueName, ExchangeName, RoutingKey, cancellationToken: stoppingToken);
 
             _logger.LogInformation("Payment service listening on queue: {QueueName}...", QueueName);
@@ -76,8 +92,9 @@ namespace Payment.Consumers
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error processing order payment simulation.");
-                    await _channel.BasicNackAsync(eventArgs.DeliveryTag, multiple: false, requeue: true, cancellationToken: stoppingToken);
+                    _logger.LogError(ex, "Error processing order payment simulation. Routing to DLQ...");
+                    // requeue: false tells RabbitMQ to send it to the Dead-Letter Exchange
+                    await _channel.BasicNackAsync(eventArgs.DeliveryTag, multiple: false, requeue: false, cancellationToken: stoppingToken);
                 }
             };
 
@@ -89,10 +106,18 @@ namespace Payment.Consumers
         {
             _logger.LogInformation("Processing payment simulation gateway authorization for Order: {OrderId} totaling ${Amount}", @event.OrderId, @event.TotalAmount);
 
-            // Simulate transactional processing time delay out-of-band
-            await Task.Delay(2000);
+            // Use the resilient HttpClient to simulate the third-party gateway call
+            // Polly will automatically retry and apply circuit breakers here if the endpoint fails
+            var client = _httpClientFactory.CreateClient("PaymentGateway");
 
+            // Making a dummy request to sandbox to trigger HTTP resilience
+            var dummyPayload = new StringContent(JsonSerializer.Serialize(new { @event.TotalAmount, Currency = "USD" }), Encoding.UTF8, "application/json");
+            var response = await client.PostAsync("post", dummyPayload);
+
+            // If it fails after all retries, this throws and routes to DLQ
+            response.EnsureSuccessStatusCode();
             string mockTransactionId = $"TXN-{Guid.NewGuid().ToString()[..8].ToUpper()}";
+
             
             // Save transaction to DB context
             using (var scope = _serviceProvider.CreateScope())

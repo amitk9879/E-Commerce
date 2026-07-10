@@ -92,11 +92,17 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
     if (orderIndex > -1) {
       // Create a brand new deep array reference copy to safely trigger Signal mutations
       const updatedOrders = [...currentOrders];
-      
+      // Prevent downgrading status if websocket messages arrive out of order (e.g. Payment arriving after Shipped)
+      let resolvedStatus = newStatus;
+      const currentStatus = updatedOrders[orderIndex].status;
+      if (currentStatus === 'Shipped' && newStatus === 'Payment Approved') {
+        resolvedStatus = 'Shipped';
+      }
+
       // Merge status along with newly provided websocket logistics details (trackingNumber, transactionId, etc.)
       updatedOrders[orderIndex] = {
         ...updatedOrders[orderIndex],
-        status: newStatus,
+        status: resolvedStatus,
         trackingNumber: livePayload.trackingNumber || updatedOrders[orderIndex].trackingNumber,
         transactionId: livePayload.transactionId || updatedOrders[orderIndex].transactionId,
         carrier: livePayload.carrier || updatedOrders[orderIndex].carrier

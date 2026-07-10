@@ -2,12 +2,14 @@ import { Injectable, inject, signal } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../environments/environment';
+import { AuthService } from './auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
   private toastr = inject(ToastrService);
+  private authService = inject(AuthService);
   private hubConnection!: signalR.HubConnection;
 
   // Signal exposed to components to notify them when an order updates live
@@ -32,9 +34,10 @@ export class NotificationService {
 
     // 1. Dynamically extract base URL of the YARP Gateway and target the notification hub route
     const gatewayBase = environment.apiGatewayUrl.replace(/\/api$/, '');
+    const userId = this.authService.currentUserId() || '';
     
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl(`${gatewayBase}/hub/notifications`)
+      .withUrl(`${gatewayBase}/hub/notifications?userId=${userId}`)
       .withAutomaticReconnect()
       .build();
 

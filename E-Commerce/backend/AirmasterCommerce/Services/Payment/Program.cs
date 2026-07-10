@@ -23,6 +23,13 @@ builder.Services.AddSingleton<RabbitMQEventBus>(sp =>
     return new RabbitMQEventBus(connectionString, logger);
 });
 
+// Register resilient HTTP client for simulated external payment gateway
+builder.Services.AddHttpClient("PaymentGateway", client =>
+{
+    // Dummy URL for interview demonstration purposes
+    client.BaseAddress = new Uri("https://httpbin.org/");
+}).AddStandardResilienceHandler();
+
 // Register the asynchronous Background Worker listener service
 builder.Services.AddHostedService<OrderCreatedConsumer>();
 

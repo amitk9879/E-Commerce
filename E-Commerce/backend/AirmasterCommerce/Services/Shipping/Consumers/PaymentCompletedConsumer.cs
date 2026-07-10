@@ -13,7 +13,7 @@ namespace Shipping.Consumers
     public record PaymentCompletedIntegrationEvent(Guid OrderId, Guid UserId, string TransactionId) : IntegrationEvent;
 
     // Outbound Integration Event Contract signaling shipping execution maps
-    public record ShipmentCreatedIntegrationEvent(Guid OrderId, string TrackingNumber, string Carrier) : IntegrationEvent;
+    public record ShipmentCreatedIntegrationEvent(Guid OrderId, string TrackingNumber, string Carrier, string TransactionId) : IntegrationEvent;
 
     public sealed class PaymentCompletedConsumer : BackgroundService
     {
@@ -90,6 +90,12 @@ namespace Shipping.Consumers
 
         private async Task ProcessShippingAllocationAsync(PaymentCompletedIntegrationEvent @event)
         {
+            if (string.IsNullOrEmpty(@event.TransactionId))
+            {
+                _logger.LogWarning("Execution halted: Cannot generate Tracking ID because Payment Transaction ID is missing.");
+                return;
+            }
+
             using var scope = _serviceProvider.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<ShippingDbContext>();
 
@@ -113,8 +119,8 @@ namespace Shipping.Consumers
 
             _logger.LogInformation("Logistics Tracking generated: {Tracking}", trackingNumber);
 
-            // Notify downstream consumers of generation
-            var shippingEvent = new ShipmentCreatedIntegrationEvent(shipment.OrderId, shipment.TrackingNumber, shipment.Carrier);
+            // Notify downstream consumers of generation, passing the Transaction ID forward!
+            var shippingEvent = new ShipmentCreatedIntegrationEvent(shipment.OrderId, shipment.TrackingNumber, shipment.Carrier, @event.TransactionId);
             await _eventBus.PublishAsync(shippingEvent, "shipping.created");
         }
 
