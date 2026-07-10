@@ -1,0 +1,116 @@
+USE [master]
+GO
+/****** Object:  Database [Airmaster_PaymentDb]    Script Date: 10-07-2026 15:20:35 ******/
+CREATE DATABASE [Airmaster_PaymentDb]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'Airmaster_PaymentDb', FILENAME = N'C:\Users\amitk\Airmaster_PaymentDb.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'Airmaster_PaymentDb_log', FILENAME = N'C:\Users\amitk\Airmaster_PaymentDb_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [Airmaster_PaymentDb].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET AUTO_CLOSE ON 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET READ_COMMITTED_SNAPSHOT ON 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET  MULTI_USER 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+USE [Airmaster_PaymentDb]
+GO
+/****** Object:  Table [dbo].[__EFMigrationsHistory]    Script Date: 10-07-2026 15:20:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[__EFMigrationsHistory](
+	[MigrationId] [nvarchar](150) NOT NULL,
+	[ProductVersion] [nvarchar](32) NOT NULL,
+ CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY CLUSTERED 
+(
+	[MigrationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[PaymentTransactions]    Script Date: 10-07-2026 15:20:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[PaymentTransactions](
+	[Id] [uniqueidentifier] NOT NULL,
+	[OrderId] [uniqueidentifier] NOT NULL,
+	[UserId] [uniqueidentifier] NOT NULL,
+	[Amount] [decimal](18, 2) NOT NULL,
+	[TransactionStatus] [nvarchar](max) NOT NULL,
+	[GatewayReference] [nvarchar](max) NOT NULL,
+	[ProcessedAtUtc] [datetime2](7) NOT NULL,
+ CONSTRAINT [PK_PaymentTransactions] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Index [IX_PaymentTransactions_OrderId]    Script Date: 10-07-2026 15:20:35 ******/
+CREATE UNIQUE NONCLUSTERED INDEX [IX_PaymentTransactions_OrderId] ON [dbo].[PaymentTransactions]
+(
+	[OrderId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+USE [master]
+GO
+ALTER DATABASE [Airmaster_PaymentDb] SET  READ_WRITE 
+GO
