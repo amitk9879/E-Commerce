@@ -4,7 +4,7 @@ using Payment.Consumers;
 using Payment.Data;
 using SharedKernel.Logging;
 
-var builder = Host.CreateApplicationBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 builder.AddSharedSerilogLogging("Payment");
 
 // Register isolated database infrastructure
@@ -26,20 +26,31 @@ builder.Services.AddSingleton<RabbitMQEventBus>(sp =>
 // Register resilient HTTP client for simulated external payment gateway
 builder.Services.AddHttpClient("PaymentGateway", client =>
 {
-    // Dummy URL for interview demonstration purposes
-    client.BaseAddress = new Uri("https://httpbin.org/");
+    // Fetch endpoint from configuration
+    var baseUrl = builder.Configuration["PaymentGateway:BaseUrl"]
+                  ?? throw new InvalidOperationException("PaymentGateway:BaseUrl is missing in configuration.");
+    client.BaseAddress = new Uri(baseUrl);
 }).AddStandardResilienceHandler();
 
 // Register the asynchronous Background Worker listener service
 builder.Services.AddHostedService<OrderCreatedConsumer>();
 
-var _host = builder.Build();
+var app = builder.Build();
+
+app.MapPost("/payment", () =>
+{
+    return Results.Ok(new
+    {
+        Success = true,
+        TransactionId = Guid.NewGuid()
+    });
+});
 
 // Run database migrations on application startup
-using (var scope = _host.Services.CreateScope())
+using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<PaymentDbContext>();
     db.Database.Migrate();
 }
 
-await _host.RunAsync();
+await app.RunAsync();
