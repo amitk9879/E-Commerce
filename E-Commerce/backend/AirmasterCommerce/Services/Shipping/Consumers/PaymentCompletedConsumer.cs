@@ -7,6 +7,7 @@ using Shipping.Data.Entities;
 using System.Text;
 using System.Text.Json;
 using Serilog.Context;
+using Polly;
 
 namespace Shipping.Consumers
 {
@@ -93,7 +94,18 @@ namespace Shipping.Consumers
                     {
                         if (@event != null)
                         {
-                            await ProcessShippingAllocationAsync(@event);
+                            var retryPolicy = Policy
+                                .Handle<Exception>()
+                                .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), 
+                                (exception, timeSpan, retryCount, context) =>
+                                {
+                                    _logger.LogWarning(exception, "Transient error processing shipping allocation. Retrying {RetryCount}/3 after {DelaySeconds}s delay...", retryCount, timeSpan.TotalSeconds);
+                                });
+
+                            await retryPolicy.ExecuteAsync(async () =>
+                            {
+                                await ProcessShippingAllocationAsync(@event);
+                            });
                         }
                     }
 

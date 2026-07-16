@@ -55,6 +55,22 @@ export class AuthService {
   }
 
   public logout(): void {
+    // Notify backend to blacklist token
+    this.http.post(`${environment.authEndpoint}/logout`, {}).subscribe({
+      next: () => this.clearLocalSession(),
+      error: () => this.clearLocalSession() // Clear even if backend fails
+    });
+  }
+
+  public logoutAll(): void {
+    // Notify backend to invalidate all sessions globally
+    this.http.post(`${environment.authEndpoint}/logout-all`, {}).subscribe({
+      next: () => this.clearLocalSession(),
+      error: () => this.clearLocalSession()
+    });
+  }
+
+  private clearLocalSession(): void {
     localStorage.removeItem(this.ACCESS_TOKEN_KEY);
     localStorage.removeItem(this.REFRESH_TOKEN_KEY);
     this.currentUserEmail.set('Customer');

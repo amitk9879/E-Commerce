@@ -15,6 +15,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Serilog.Context;
+using Polly;
 
 namespace Payment.Consumers
 {
@@ -92,7 +93,18 @@ namespace Payment.Consumers
                     {
                         if (@event != null)
                         {
-                            await ProcessRefundAsync(@event);
+                            var retryPolicy = Policy
+                                .Handle<Exception>()
+                                .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), 
+                                (exception, timeSpan, retryCount, context) =>
+                                {
+                                    _logger.LogWarning(exception, "Transient error processing refund. Retrying {RetryCount}/3 after {DelaySeconds}s delay...", retryCount, timeSpan.TotalSeconds);
+                                });
+
+                            await retryPolicy.ExecuteAsync(async () =>
+                            {
+                                await ProcessRefundAsync(@event);
+                            });
                         }
                     }
 
