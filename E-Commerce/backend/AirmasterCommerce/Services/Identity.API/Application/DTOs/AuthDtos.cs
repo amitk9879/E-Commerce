@@ -23,6 +23,10 @@ namespace Identity.API.Application.DTOs
 
         public record LoginCommand(string Email, string Password) : IRequest<TokenResponseDto>;
         
+        public record LogoutCommand(string Token, DateTime Expiration) : IRequest<bool>;
+        
+        public record LogoutAllCommand(Guid UserId) : IRequest<bool>;
+        
         public record UserDto(string Id, string Email, string FirstName, string LastName, string Role, DateTime CreatedAt);
         public record GetAllUsersQuery(int Page = 1, int PageSize = 10) : IRequest<PaginatedResult<UserDto>>;
 

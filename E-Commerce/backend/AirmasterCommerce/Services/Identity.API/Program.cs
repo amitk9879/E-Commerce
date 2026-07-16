@@ -19,15 +19,13 @@ builder.Services.AddMemoryCache();
 builder.Services.AddDbContext<IdentityDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<TokenService>();
-
-// Configure MediatR Pipeline Interceptors and automatic FluentValidation registration
+// Register MediatR
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(System.Reflection.Assembly.GetExecutingAssembly()));
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
-builder.Services.AddMediatR(cfg =>
-{
-    cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
-    cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-});
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+// Register application services
+builder.Services.AddScoped<TokenService>();
 
 var app = builder.Build();
 
@@ -37,10 +35,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Global tracing context interceptor
-app.UseMiddleware<CorrelationIdMiddleware>();
+// Configure the HTTP request pipeline.
+app.UseMiddleware<SharedKernel.Middleware.CorrelationIdMiddleware>();
+app.UseMiddleware<SharedKernel.Middleware.TokenBlacklistMiddleware>();
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

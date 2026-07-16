@@ -27,6 +27,40 @@ namespace Identity.API.Controllers
             return Ok(tokens);
         }
 
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            // Extract the token from the Authorization header
+            var authorizationHeader = HttpContext.Request.Headers["Authorization"].FirstOrDefault();
+            if (string.IsNullOrEmpty(authorizationHeader) || !authorizationHeader.StartsWith("Bearer "))
+            {
+                return BadRequest("Invalid token.");
+            }
+
+            var token = authorizationHeader.Substring("Bearer ".Length).Trim();
+            
+            // To properly calculate expiration, you could parse the JWT here, 
+            // but for simplicity we'll just set it to 15 mins (the token lifetime).
+            var expiration = DateTime.UtcNow.AddMinutes(15);
+            
+            await _mediator.Send(new LogoutCommand(token, expiration));
+            return Ok(new { Message = "Successfully logged out." });
+        }
+
+        [HttpPost("logout-all")]
+        public async Task<IActionResult> LogoutAll()
+        {
+            // Need the UserId from the authenticated user
+            var userIdClaim = HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out Guid userId))
+            {
+                return Unauthorized();
+            }
+
+            await _mediator.Send(new LogoutAllCommand(userId));
+            return Ok(new { Message = "Successfully logged out from all devices." });
+        }
+
         [HttpGet("users")]
         public async Task<IActionResult> GetAllUsers([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {

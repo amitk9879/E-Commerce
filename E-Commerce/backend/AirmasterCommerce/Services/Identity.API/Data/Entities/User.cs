@@ -1,4 +1,4 @@
-﻿namespace Identity.API.Data.Entities
+namespace Identity.API.Data.Entities
 {
     public class User
     {
@@ -12,5 +12,8 @@
         // Refresh Token attributes to securely manage persistent login sessions
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpiryTime { get; set; }
+        
+        // Security stamp to invalidate all tokens globally
+        public string SecurityStamp { get; set; } = Guid.NewGuid().ToString();
     }
 }

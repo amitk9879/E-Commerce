@@ -6,6 +6,7 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 using System.Text.Json;
+using Serilog.Context;
 
 namespace Ordering.API.Infrastructure.BackgroundWorkers
 {
@@ -42,11 +43,24 @@ namespace Ordering.API.Infrastructure.BackgroundWorkers
             _connection = await factory.CreateConnectionAsync(stoppingToken);
             _channel = await _connection.CreateChannelAsync(cancellationToken: stoppingToken);
 
+            var dlxName = QueueName + ".dlx";
+            var dlqName = QueueName + ".dlq";
+            await _channel.ExchangeDeclareAsync(dlxName, ExchangeType.Fanout, durable: true, cancellationToken: stoppingToken);
+            await _channel.QueueDeclareAsync(dlqName, durable: true, exclusive: false, autoDelete: false, cancellationToken: stoppingToken);
+            await _channel.QueueBindAsync(dlqName, dlxName, "", cancellationToken: stoppingToken);
+            
+            var queueArgs = new Dictionary<string, object?>
+            {
+                { "x-dead-letter-exchange", dlxName }
+            };
+
             await _channel.ExchangeDeclareAsync(ExchangeName, ExchangeType.Topic, durable: true, cancellationToken: stoppingToken);
-            await _channel.QueueDeclareAsync(QueueName, durable: true, exclusive: false, autoDelete: false, cancellationToken: stoppingToken);
+            await _channel.QueueDeclareAsync(QueueName, durable: true, exclusive: false, autoDelete: false, arguments: queueArgs, cancellationToken: stoppingToken);
 
             await _channel.QueueBindAsync(QueueName, ExchangeName, "payment.completed", cancellationToken: stoppingToken);
+            await _channel.QueueBindAsync(QueueName, ExchangeName, "payment.failed", cancellationToken: stoppingToken);
             await _channel.QueueBindAsync(QueueName, ExchangeName, "shipping.created", cancellationToken: stoppingToken);
+            await _channel.QueueBindAsync(QueueName, ExchangeName, "shipping.failed", cancellationToken: stoppingToken);
 
             _logger.LogInformation("Ordering order status update consumer listening on queue: {QueueName}...", QueueName);
 
@@ -58,38 +72,71 @@ namespace Ordering.API.Infrastructure.BackgroundWorkers
                     var body = eventArgs.Body.ToArray();
                     var json = Encoding.UTF8.GetString(body);
                     var routingKey = eventArgs.RoutingKey;
+                    var correlationId = eventArgs.BasicProperties.CorrelationId ?? "Unknown-CorrelationId";
 
-                    using var scope = _serviceProvider.CreateScope();
-                    var dbContext = scope.ServiceProvider.GetRequiredService<OrderingDbContext>();
-
-                    if (routingKey == "payment.completed")
+                    using (LogContext.PushProperty("CorrelationId", correlationId))
                     {
-                        var data = JsonSerializer.Deserialize<PaymentCompletedIntegrationEvent>(json);
-                        if (data != null)
+                        using var scope = _serviceProvider.CreateScope();
+                        var dbContext = scope.ServiceProvider.GetRequiredService<OrderingDbContext>();
+
+                        if (routingKey == "payment.completed")
                         {
-                            var order = await dbContext.Orders.FirstOrDefaultAsync(o => o.Id == data.OrderId, stoppingToken);
-                            if (order != null)
+                            var data = JsonSerializer.Deserialize<PaymentCompletedIntegrationEvent>(json);
+                            if (data != null)
                             {
-                                order.Status = OrderStatus.Paid;
-                                order.TransactionId = data.TransactionId;
-                                await dbContext.SaveChangesAsync(stoppingToken);
-                                _logger.LogInformation("Order {OrderId} status updated to Paid.", data.OrderId);
+                                var order = await dbContext.Orders.FirstOrDefaultAsync(o => o.Id == data.OrderId, stoppingToken);
+                                if (order != null)
+                                {
+                                    order.Status = OrderStatus.Paid;
+                                    order.TransactionId = data.TransactionId;
+                                    await dbContext.SaveChangesAsync(stoppingToken);
+                                    _logger.LogInformation("Order {OrderId} status updated to Paid.", data.OrderId);
+                                }
                             }
                         }
-                    }
-                    else if (routingKey == "shipping.created")
-                    {
-                        var data = JsonSerializer.Deserialize<ShipmentCreatedIntegrationEvent>(json);
-                        if (data != null)
+                        else if (routingKey == "shipping.created")
                         {
-                            var order = await dbContext.Orders.FirstOrDefaultAsync(o => o.Id == data.OrderId, stoppingToken);
-                            if (order != null)
+                            var data = JsonSerializer.Deserialize<ShipmentCreatedIntegrationEvent>(json);
+                            if (data != null)
                             {
-                                order.Status = OrderStatus.Shipped;
-                                order.TrackingNumber = data.TrackingNumber;
-                                order.Carrier = data.Carrier;
-                                await dbContext.SaveChangesAsync(stoppingToken);
-                                _logger.LogInformation("Order {OrderId} status updated to Shipped.", data.OrderId);
+                                var order = await dbContext.Orders.FirstOrDefaultAsync(o => o.Id == data.OrderId, stoppingToken);
+                                if (order != null)
+                                {
+                                    order.Status = OrderStatus.Shipped;
+                                    order.TrackingNumber = data.TrackingNumber;
+                                    order.Carrier = data.Carrier;
+                                    await dbContext.SaveChangesAsync(stoppingToken);
+                                    _logger.LogInformation("Order {OrderId} status updated to Shipped.", data.OrderId);
+                                }
+                            }
+                        }
+                        else if (routingKey == "payment.failed")
+                        {
+                            var data = JsonSerializer.Deserialize<PaymentFailedIntegrationEvent>(json);
+                            if (data != null)
+                            {
+                                var order = await dbContext.Orders.FirstOrDefaultAsync(o => o.Id == data.OrderId, stoppingToken);
+                                if (order != null)
+                                {
+                                    order.Status = OrderStatus.Cancelled; // Or a specific Failed state
+                                    await dbContext.SaveChangesAsync(stoppingToken);
+                                    _logger.LogInformation("Order {OrderId} status updated to Cancelled due to payment failure.", data.OrderId);
+                                }
+                            }
+                        }
+                        else if (routingKey == "shipping.failed")
+                        {
+                            var data = JsonSerializer.Deserialize<ShippingFailedIntegrationEvent>(json);
+                            if (data != null)
+                            {
+                                var order = await dbContext.Orders.FirstOrDefaultAsync(o => o.Id == data.OrderId, stoppingToken);
+                                if (order != null)
+                                {
+                                    // Order is marked as cancelled/shipping failed. Payment service handles refund directly
+                                    order.Status = OrderStatus.Cancelled;
+                                    await dbContext.SaveChangesAsync(stoppingToken);
+                                    _logger.LogInformation("Order {OrderId} status updated to Cancelled due to shipping failure.", data.OrderId);
+                                }
                             }
                         }
                     }
@@ -98,8 +145,8 @@ namespace Ordering.API.Infrastructure.BackgroundWorkers
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error processing order status update.");
-                    await _channel.BasicNackAsync(eventArgs.DeliveryTag, multiple: false, requeue: true, cancellationToken: stoppingToken);
+                    _logger.LogError(ex, "Error processing order status update. Routing to DLQ...");
+                    await _channel.BasicNackAsync(eventArgs.DeliveryTag, multiple: false, requeue: false, cancellationToken: stoppingToken);
                 }
             };
 

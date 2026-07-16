@@ -1,4 +1,4 @@
-﻿using Identity.API.Data.Entities;
+using Identity.API.Data.Entities;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -20,7 +20,8 @@ namespace Identity.API.Services
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Email, user.Email),
             new Claim(ClaimTypes.Role, user.Role),
-            new Claim("FullName", $"{user.FirstName} {user.LastName}")
+            new Claim("FullName", $"{user.FirstName} {user.LastName}"),
+            new Claim("SecurityStamp", user.SecurityStamp)
         };
 
             var secretKey = _config["Jwt:Key"] ?? "SuperSecretLongKeyForAirmasterEnterprisePlatform2026!";

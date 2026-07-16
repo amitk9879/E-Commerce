@@ -80,7 +80,8 @@ namespace EventBus
 
             var properties = new BasicProperties
             {
-                Persistent = true
+                Persistent = true,
+                CorrelationId = @event.CorrelationId
             };
 
             await _channel!.BasicPublishAsync(

@@ -6,6 +6,7 @@ using Shipping.Data;
 using Shipping.Data.Entities;
 using System.Text;
 using System.Text.Json;
+using Serilog.Context;
 
 namespace Shipping.Consumers
 {
@@ -14,6 +15,9 @@ namespace Shipping.Consumers
 
     // Outbound Integration Event Contract signaling shipping execution maps
     public record ShipmentCreatedIntegrationEvent(Guid OrderId, string TrackingNumber, string Carrier, string TransactionId) : IntegrationEvent;
+    
+    // Outbound Integration Event Contract signaling shipping failure
+    public record ShippingFailedIntegrationEvent(Guid OrderId, string TransactionId, string Reason) : IntegrationEvent;
 
     public sealed class PaymentCompletedConsumer : BackgroundService
     {
@@ -55,8 +59,19 @@ namespace Shipping.Consumers
             _connection = await factory.CreateConnectionAsync(stoppingToken);
             _channel = await _connection.CreateChannelAsync(cancellationToken: stoppingToken);
 
+            var dlxName = QueueName + ".dlx";
+            var dlqName = QueueName + ".dlq";
+            await _channel.ExchangeDeclareAsync(dlxName, ExchangeType.Fanout, durable: true, cancellationToken: stoppingToken);
+            await _channel.QueueDeclareAsync(dlqName, durable: true, exclusive: false, autoDelete: false, cancellationToken: stoppingToken);
+            await _channel.QueueBindAsync(dlqName, dlxName, "", cancellationToken: stoppingToken);
+            
+            var queueArgs = new Dictionary<string, object?>
+            {
+                { "x-dead-letter-exchange", dlxName }
+            };
+
             await _channel.ExchangeDeclareAsync(ExchangeName, ExchangeType.Topic, durable: true, cancellationToken: stoppingToken);
-            await _channel.QueueDeclareAsync(QueueName, durable: true, exclusive: false, autoDelete: false, cancellationToken: stoppingToken);
+            await _channel.QueueDeclareAsync(QueueName, durable: true, exclusive: false, autoDelete: false, arguments: queueArgs, cancellationToken: stoppingToken);
             await _channel.QueueBindAsync(QueueName, ExchangeName, RoutingKey, cancellationToken: stoppingToken);
 
             _logger.LogInformation("Shipping consumer listening on cloud queue: {QueueName}...", QueueName);
@@ -64,23 +79,37 @@ namespace Shipping.Consumers
             var consumer = new AsyncEventingBasicConsumer(_channel);
             consumer.ReceivedAsync += async (sender, eventArgs) =>
             {
+                PaymentCompletedIntegrationEvent? @event = null;
                 try
                 {
                     var body = eventArgs.Body.ToArray();
                     var json = Encoding.UTF8.GetString(body);
 
-                    var @event = JsonSerializer.Deserialize<PaymentCompletedIntegrationEvent>(json);
-                    if (@event != null)
+                    @event = JsonSerializer.Deserialize<PaymentCompletedIntegrationEvent>(json);
+                    
+                    var correlationId = eventArgs.BasicProperties.CorrelationId ?? "Unknown-CorrelationId";
+
+                    using (LogContext.PushProperty("CorrelationId", correlationId))
                     {
-                        await ProcessShippingAllocationAsync(@event);
+                        if (@event != null)
+                        {
+                            await ProcessShippingAllocationAsync(@event);
+                        }
                     }
 
                     await _channel.BasicAckAsync(eventArgs.DeliveryTag, multiple: false, cancellationToken: stoppingToken);
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error processing cloud routing message tracking points.");
-                    await _channel.BasicNackAsync(eventArgs.DeliveryTag, multiple: false, requeue: true, cancellationToken: stoppingToken);
+                    _logger.LogError(ex, "Error processing cloud routing message tracking points. Publishing shipping.failed event...");
+                    
+                    if (@event != null)
+                    {
+                        var failedEvent = new ShippingFailedIntegrationEvent(@event.OrderId, @event.TransactionId, ex.Message);
+                        await _eventBus.PublishAsync(failedEvent, "shipping.failed");
+                    }
+
+                    await _channel.BasicNackAsync(eventArgs.DeliveryTag, multiple: false, requeue: false, cancellationToken: stoppingToken);
                 }
             };
 
@@ -99,6 +128,13 @@ namespace Shipping.Consumers
             using var scope = _serviceProvider.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<ShippingDbContext>();
 
+            // Idempotency Check
+            if (dbContext.IdempotencyRecords.Any(r => r.EventId == @event.Id))
+            {
+                _logger.LogInformation("Event {EventId} already processed. Skipping.", @event.Id);
+                return;
+            }
+
             _logger.LogInformation("Payment verified for Order: {OrderId}. Generating logistics allocation record...", @event.OrderId);
 
             string trackingNumber = $"AMR-{DateTime.UtcNow:yyyyMMdd}-{Guid.NewGuid().ToString()[..8].ToUpper()}";
@@ -113,8 +149,16 @@ namespace Shipping.Consumers
                 ShippingStatus = "LabelCreated",
                 CreatedAtUtc = DateTime.UtcNow
             };
+            
+            var idempotencyRecord = new IdempotencyRecord
+            {
+                EventId = @event.Id,
+                EventType = nameof(PaymentCompletedIntegrationEvent),
+                ProcessedAtUtc = DateTime.UtcNow
+            };
 
             dbContext.Shipments.Add(shipment);
+            dbContext.IdempotencyRecords.Add(idempotencyRecord);
             await dbContext.SaveChangesAsync();
 
             _logger.LogInformation("Logistics Tracking generated: {Tracking}", trackingNumber);

@@ -1,25 +1,29 @@
 using EventBus;
 using EventBus.Events;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 using Payment.Data;
-using Payment.Data.Entities;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
 using System.Text;
 using System.Text.Json;
+using System.Net.Http;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Serilog.Context;
 
 namespace Payment.Consumers
 {
-    public record OrderCreatedIntegrationEvent(Guid OrderId, Guid UserId, decimal TotalAmount) : IntegrationEvent;
-    public record PaymentCompletedIntegrationEvent(Guid OrderId, Guid UserId, string TransactionId) : IntegrationEvent;
-    public record PaymentFailedIntegrationEvent(Guid OrderId, string Reason) : IntegrationEvent;
+    public record ShippingFailedIntegrationEvent(Guid OrderId, string TransactionId, string Reason) : IntegrationEvent;
 
-    public sealed class OrderCreatedConsumer : BackgroundService
+    public sealed class ShippingFailedConsumer : Microsoft.Extensions.Hosting.BackgroundService
     {
         private readonly IServiceProvider _serviceProvider;
-        private readonly ILogger<OrderCreatedConsumer> _logger;
+        private readonly ILogger<ShippingFailedConsumer> _logger;
         private readonly RabbitMQEventBus _eventBus;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly string _connectionString;
@@ -28,12 +32,12 @@ namespace Payment.Consumers
         private IChannel? _channel;
 
         private const string ExchangeName = "AirmasterCentralExchange";
-        private const string QueueName = "payment_order_created_queue_v2";
-        private const string RoutingKey = "order.created";
+        private const string QueueName = "payment_shipping_failed_queue";
+        private const string RoutingKey = "shipping.failed";
 
-        public OrderCreatedConsumer(
+        public ShippingFailedConsumer(
             IServiceProvider serviceProvider,
-            ILogger<OrderCreatedConsumer> logger,
+            ILogger<ShippingFailedConsumer> logger,
             IConfiguration configuration,
             RabbitMQEventBus eventBus,
             IHttpClientFactory httpClientFactory)
@@ -42,7 +46,6 @@ namespace Payment.Consumers
             _logger = logger;
             _eventBus = eventBus;
             _httpClientFactory = httpClientFactory;
-            // Fallback default allows clean local checking configurations
             _connectionString = configuration["RabbitMQ:ConnectionString"] ?? "amqps://yxcobcwd:msbIdDrx5pZn18UXuFYxyvc6inhz0Msh@fly.rmq.cloudamqp.com/yxcobcwd";
         }
 
@@ -57,42 +60,39 @@ namespace Payment.Consumers
             _connection = await factory.CreateConnectionAsync(stoppingToken);
             _channel = await _connection.CreateChannelAsync(cancellationToken: stoppingToken);
 
-            // Configure Dead-Letter Exchange (DLX)
-            var dlxName = "AirmasterCentralExchange.DLX";
+            var dlxName = QueueName + ".dlx";
             var dlqName = QueueName + ".dlq";
             await _channel.ExchangeDeclareAsync(dlxName, ExchangeType.Fanout, durable: true, cancellationToken: stoppingToken);
             await _channel.QueueDeclareAsync(dlqName, durable: true, exclusive: false, autoDelete: false, cancellationToken: stoppingToken);
             await _channel.QueueBindAsync(dlqName, dlxName, "", cancellationToken: stoppingToken);
-            // Configure main queue to route to DLX on failure
+            
             var queueArgs = new Dictionary<string, object?>
             {
                 { "x-dead-letter-exchange", dlxName }
             };
 
-
             await _channel.ExchangeDeclareAsync(ExchangeName, ExchangeType.Topic, durable: true, cancellationToken: stoppingToken);
             await _channel.QueueDeclareAsync(QueueName, durable: true, exclusive: false, autoDelete: false, arguments: queueArgs, cancellationToken: stoppingToken);
             await _channel.QueueBindAsync(QueueName, ExchangeName, RoutingKey, cancellationToken: stoppingToken);
 
-            _logger.LogInformation("Payment service listening on queue: {QueueName}...", QueueName);
+            _logger.LogInformation("Payment service listening for refunds on queue: {QueueName}...", QueueName);
 
             var consumer = new AsyncEventingBasicConsumer(_channel);
             consumer.ReceivedAsync += async (sender, eventArgs) =>
             {
-                OrderCreatedIntegrationEvent? @event = null;
                 try
                 {
                     var body = eventArgs.Body.ToArray();
                     var json = Encoding.UTF8.GetString(body);
-                    @event = JsonSerializer.Deserialize<OrderCreatedIntegrationEvent>(json);
-                    
+                    var @event = JsonSerializer.Deserialize<ShippingFailedIntegrationEvent>(json);
+
                     var correlationId = eventArgs.BasicProperties.CorrelationId ?? "Unknown-CorrelationId";
 
                     using (LogContext.PushProperty("CorrelationId", correlationId))
                     {
                         if (@event != null)
                         {
-                            await ProcessPaymentSimulationAsync(@event);
+                            await ProcessRefundAsync(@event);
                         }
                     }
 
@@ -100,14 +100,7 @@ namespace Payment.Consumers
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error processing order payment simulation. Publishing payment.failed event...");
-                    if (@event != null)
-                    {
-                        var failedEvent = new PaymentFailedIntegrationEvent(@event.OrderId, ex.Message);
-                        await _eventBus.PublishAsync(failedEvent, "payment.failed");
-                    }
-                    
-                    // requeue: false tells RabbitMQ to send it to the Dead-Letter Exchange
+                    _logger.LogError(ex, "Error processing refund. Routing to DLQ...");
                     await _channel.BasicNackAsync(eventArgs.DeliveryTag, multiple: false, requeue: false, cancellationToken: stoppingToken);
                 }
             };
@@ -116,66 +109,54 @@ namespace Payment.Consumers
             await Task.Delay(Timeout.Infinite, stoppingToken);
         }
 
-        private async Task ProcessPaymentSimulationAsync(OrderCreatedIntegrationEvent @event)
+        private async Task ProcessRefundAsync(ShippingFailedIntegrationEvent @event)
         {
+            _logger.LogInformation("Processing refund for Order: {OrderId}, TransactionId: {TxnId} due to: {Reason}", @event.OrderId, @event.TransactionId, @event.Reason);
+
             using var scope = _serviceProvider.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<PaymentDbContext>();
 
             // Idempotency Check
             if (dbContext.IdempotencyRecords.Any(r => r.EventId == @event.Id))
             {
-                _logger.LogInformation("Event {EventId} already processed. Skipping.", @event.Id);
+                _logger.LogInformation("Refund event {EventId} already processed. Skipping.", @event.Id);
                 return;
             }
 
-            _logger.LogInformation("Processing payment simulation gateway authorization for Order: {OrderId} totaling ${Amount}", @event.OrderId, @event.TotalAmount);
-
-            // Use the resilient HttpClient to simulate the third-party gateway call
-            // Polly will automatically retry and apply circuit breakers here if the endpoint fails
-            var client = _httpClientFactory.CreateClient("PaymentGateway");
-
-            // Making a dummy request to sandbox to trigger HTTP resilience
-            var dummyPayload = new StringContent(JsonSerializer.Serialize(new { @event.TotalAmount, Currency = "USD" }), Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("post", dummyPayload);
-
-            // If it fails after all retries, this throws and routes to DLQ
-            response.EnsureSuccessStatusCode();
-            string mockTransactionId = $"TXN-{Guid.NewGuid().ToString()[..8].ToUpper()}";
-
-            var tx = new PaymentTransaction
+            var transaction = await dbContext.PaymentTransactions.FirstOrDefaultAsync(t => t.GatewayReference == @event.TransactionId);
+            if (transaction != null && transaction.TransactionStatus == "Success")
             {
-                Id = Guid.NewGuid(),
-                OrderId = @event.OrderId,
-                UserId = @event.UserId,
-                Amount = @event.TotalAmount,
-                TransactionStatus = "Success",
-                GatewayReference = mockTransactionId,
-                ProcessedAtUtc = DateTime.UtcNow
-            };
-            
-            var idempotencyRecord = new IdempotencyRecord 
-            { 
-                EventId = @event.Id, 
-                EventType = nameof(OrderCreatedIntegrationEvent), 
-                ProcessedAtUtc = DateTime.UtcNow 
-            };
+                // Simulate Refund API Call
+                var client = _httpClientFactory.CreateClient("PaymentGateway");
+                var dummyPayload = new StringContent(JsonSerializer.Serialize(new { transaction.Amount, Action = "Refund" }), Encoding.UTF8, "application/json");
+                var response = await client.PostAsync("post", dummyPayload);
+                response.EnsureSuccessStatusCode();
 
-            dbContext.PaymentTransactions.Add(tx);
-            dbContext.IdempotencyRecords.Add(idempotencyRecord);
-            await dbContext.SaveChangesAsync();
+                transaction.TransactionStatus = "Refunded";
+                
+                var idempotencyRecord = new Payment.Data.Entities.IdempotencyRecord 
+                { 
+                    EventId = @event.Id, 
+                    EventType = nameof(ShippingFailedIntegrationEvent), 
+                    ProcessedAtUtc = DateTime.UtcNow 
+                };
 
-            _logger.LogInformation("Payment cleared successfully. Transaction ID: {TxnId}", mockTransactionId);
+                dbContext.IdempotencyRecords.Add(idempotencyRecord);
+                await dbContext.SaveChangesAsync();
 
-            // Broadcast downstream message via shared kernel event bus
-            var paymentSuccessEvent = new PaymentCompletedIntegrationEvent(@event.OrderId, @event.UserId, mockTransactionId);
-            await _eventBus.PublishAsync(paymentSuccessEvent, "payment.completed");
+                _logger.LogInformation("Payment refunded successfully for Transaction ID: {TxnId}", @event.TransactionId);
+            }
+            else
+            {
+                _logger.LogWarning("Transaction not found or not in Success state for refund. TxnId: {TxnId}", @event.TransactionId);
+            }
         }
 
         public override async Task StopAsync(CancellationToken cancellationToken)
         {
             if (_channel is not null) await _channel.CloseAsync(cancellationToken);
             if (_connection is not null) await _connection.CloseAsync(cancellationToken);
-            await base.StopAsync(cancellationToken);
+            base.StopAsync(cancellationToken).GetAwaiter().GetResult();
         }
     }
 }

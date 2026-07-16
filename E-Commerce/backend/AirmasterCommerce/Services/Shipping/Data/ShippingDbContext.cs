@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Shipping.Data.Entities;
 
 namespace Shipping.Data
@@ -8,6 +8,7 @@ namespace Shipping.Data
         public ShippingDbContext(DbContextOptions<ShippingDbContext> options) : base(options) { }
 
         public DbSet<Shipment> Shipments => Set<Shipment>();
+        public DbSet<IdempotencyRecord> IdempotencyRecords => Set<IdempotencyRecord>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -18,6 +19,11 @@ namespace Shipping.Data
                 entity.HasKey(x => x.Id);
                 entity.Property(x => x.TrackingNumber).IsRequired().HasMaxLength(50);
                 entity.HasIndex(x => x.OrderId).IsUnique();
+            });
+
+            modelBuilder.Entity<IdempotencyRecord>(entity =>
+            {
+                entity.HasKey(x => x.EventId);
             });
         }
     }
