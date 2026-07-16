@@ -13,6 +13,9 @@ namespace Ordering.API.Domain.Entities
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
         public string ShippingAddress { get; set; } = string.Empty;
         
+        public DateTime? PaidAtUtc { get; set; }
+        public DateTime? ShippedAtUtc { get; set; }
+        
         public string? TransactionId { get; set; }
         public string? TrackingNumber { get; set; }
         public string? Carrier { get; set; }

@@ -31,6 +31,8 @@ export interface Order {
   transactionId?: string;
   trackingNumber?: string;
   carrier?: string;
+  paidAtUtc?: Date;
+  shippedAtUtc?: Date;
   items: OrderItem[];
 }
 

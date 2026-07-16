@@ -12,7 +12,8 @@ using System.Threading.Tasks;
 
 namespace Ordering.API.Application.Handlers
 {
-    public record OrderCreatedIntegrationEvent(Guid OrderId, Guid UserId, decimal TotalAmount) : IntegrationEvent;
+    public record OrderItemEventDto(Guid ProductId, int Quantity);
+    public record OrderCreatedIntegrationEvent(Guid OrderId, Guid UserId, decimal TotalAmount, List<OrderItemEventDto> Items) : IntegrationEvent;
 
     public sealed class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Guid>
     {
@@ -51,7 +52,8 @@ namespace Ordering.API.Application.Handlers
             _context.Orders.Add(order);
 
             // 2. Stage outbox integration content within the exact same buffer
-            var integrationEvent = new OrderCreatedIntegrationEvent(order.Id, order.UserId, order.TotalAmount);
+            var eventItems = order.Items.Select(i => new OrderItemEventDto(i.ProductId, i.Quantity)).ToList();
+            var integrationEvent = new OrderCreatedIntegrationEvent(order.Id, order.UserId, order.TotalAmount, eventItems);
 
             var outboxMessage = new OutboxMessage
             {

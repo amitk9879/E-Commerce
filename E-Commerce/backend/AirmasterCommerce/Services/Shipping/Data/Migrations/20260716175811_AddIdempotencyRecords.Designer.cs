@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Payment.Data;
+using Shipping.Data;
 
 #nullable disable
 
-namespace Payment.Migrations
+namespace Shipping.Data.Migrations
 {
-    [DbContext(typeof(PaymentDbContext))]
-    partial class PaymentDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ShippingDbContext))]
+    [Migration("20260716175811_AddIdempotencyRecords")]
+    partial class AddIdempotencyRecords
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +25,7 @@ namespace Payment.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Payment.Data.Entities.IdempotencyRecord", b =>
+            modelBuilder.Entity("Shipping.Data.Entities.IdempotencyRecord", b =>
                 {
                     b.Property<Guid>("EventId")
                         .ValueGeneratedOnAdd()
@@ -40,28 +43,30 @@ namespace Payment.Migrations
                     b.ToTable("IdempotencyRecords");
                 });
 
-            modelBuilder.Entity("Payment.Data.Entities.PaymentTransaction", b =>
+            modelBuilder.Entity("Shipping.Data.Entities.Shipment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("GatewayReference")
+                    b.Property<string>("Carrier")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("ProcessedAtUtc")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("TransactionStatus")
+                    b.Property<string>("ShippingStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TrackingNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -71,7 +76,7 @@ namespace Payment.Migrations
                     b.HasIndex("OrderId")
                         .IsUnique();
 
-                    b.ToTable("PaymentTransactions");
+                    b.ToTable("Shipments");
                 });
 #pragma warning restore 612, 618
         }

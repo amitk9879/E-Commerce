@@ -13,14 +13,14 @@ using Polly;
 
 namespace Payment.Consumers
 {
-    public record OrderCreatedIntegrationEvent(Guid OrderId, Guid UserId, decimal TotalAmount) : IntegrationEvent;
+    public record InventoryReservedIntegrationEvent(Guid OrderId, Guid UserId, decimal TotalAmount) : IntegrationEvent;
     public record PaymentCompletedIntegrationEvent(Guid OrderId, Guid UserId, string TransactionId) : IntegrationEvent;
     public record PaymentFailedIntegrationEvent(Guid OrderId, string Reason) : IntegrationEvent;
 
-    public sealed class OrderCreatedConsumer : BackgroundService
+    public sealed class InventoryReservedConsumer : BackgroundService
     {
         private readonly IServiceProvider _serviceProvider;
-        private readonly ILogger<OrderCreatedConsumer> _logger;
+        private readonly ILogger<InventoryReservedConsumer> _logger;
         private readonly RabbitMQEventBus _eventBus;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly string _connectionString;
@@ -29,12 +29,12 @@ namespace Payment.Consumers
         private IChannel? _channel;
 
         private const string ExchangeName = "AirmasterCentralExchange";
-        private const string QueueName = "payment_order_created_queue_v2";
-        private const string RoutingKey = "order.created";
+        private const string QueueName = "payment_inventory_reserved_queue";
+        private const string RoutingKey = "inventory.reserved";
 
-        public OrderCreatedConsumer(
+        public InventoryReservedConsumer(
             IServiceProvider serviceProvider,
-            ILogger<OrderCreatedConsumer> logger,
+            ILogger<InventoryReservedConsumer> logger,
             IConfiguration configuration,
             RabbitMQEventBus eventBus,
             IHttpClientFactory httpClientFactory)
@@ -80,12 +80,12 @@ namespace Payment.Consumers
             var consumer = new AsyncEventingBasicConsumer(_channel);
             consumer.ReceivedAsync += async (sender, eventArgs) =>
             {
-                OrderCreatedIntegrationEvent? @event = null;
+                InventoryReservedIntegrationEvent? @event = null;
                 try
                 {
                     var body = eventArgs.Body.ToArray();
                     var json = Encoding.UTF8.GetString(body);
-                    @event = JsonSerializer.Deserialize<OrderCreatedIntegrationEvent>(json);
+                    @event = JsonSerializer.Deserialize<InventoryReservedIntegrationEvent>(json);
                     
                     var correlationId = eventArgs.BasicProperties.CorrelationId ?? "Unknown-CorrelationId";
 
@@ -128,7 +128,7 @@ namespace Payment.Consumers
             await Task.Delay(Timeout.Infinite, stoppingToken);
         }
 
-        private async Task ProcessPaymentSimulationAsync(OrderCreatedIntegrationEvent @event)
+        private async Task ProcessPaymentSimulationAsync(InventoryReservedIntegrationEvent @event)
         {
             using var scope = _serviceProvider.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<PaymentDbContext>();
@@ -168,7 +168,7 @@ namespace Payment.Consumers
             var idempotencyRecord = new IdempotencyRecord 
             { 
                 EventId = @event.Id, 
-                EventType = nameof(OrderCreatedIntegrationEvent), 
+                EventType = nameof(InventoryReservedIntegrationEvent), 
                 ProcessedAtUtc = DateTime.UtcNow 
             };
 

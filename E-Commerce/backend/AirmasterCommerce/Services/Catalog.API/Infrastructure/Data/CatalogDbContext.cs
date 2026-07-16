@@ -1,4 +1,4 @@
-﻿using Catalog.API.Domain.Entities;
+using Catalog.API.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Catalog.API.Infrastructure.Data
@@ -9,6 +9,8 @@ namespace Catalog.API.Infrastructure.Data
 
         public DbSet<Product> Products => Set<Product>();
         public DbSet<Category> Categories => Set<Category>();
+        public DbSet<IdempotencyRecord> IdempotencyRecords => Set<IdempotencyRecord>();
+        public DbSet<OrderReservation> OrderReservations => Set<OrderReservation>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,6 +35,16 @@ namespace Catalog.API.Infrastructure.Data
                       .WithMany(c => c.Products)
                       .HasForeignKey(p => p.CategoryId)
                       .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<IdempotencyRecord>(entity =>
+            {
+                entity.HasKey(e => e.EventId);
+            });
+
+            modelBuilder.Entity<OrderReservation>(entity =>
+            {
+                entity.HasKey(e => e.OrderId);
             });
         }
     }

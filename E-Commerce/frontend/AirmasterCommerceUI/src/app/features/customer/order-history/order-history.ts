@@ -105,7 +105,9 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
         status: resolvedStatus,
         trackingNumber: livePayload.trackingNumber || updatedOrders[orderIndex].trackingNumber,
         transactionId: livePayload.transactionId || updatedOrders[orderIndex].transactionId,
-        carrier: livePayload.carrier || updatedOrders[orderIndex].carrier
+        carrier: livePayload.carrier || updatedOrders[orderIndex].carrier,
+        paidAtUtc: resolvedStatus === 'Payment Approved' ? new Date() : updatedOrders[orderIndex].paidAtUtc,
+        shippedAtUtc: resolvedStatus === 'Shipped' ? new Date() : updatedOrders[orderIndex].shippedAtUtc
       };
 
       // Set the updated list reference array

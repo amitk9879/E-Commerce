@@ -61,6 +61,7 @@ namespace Ordering.API.Infrastructure.BackgroundWorkers
             await _channel.QueueBindAsync(QueueName, ExchangeName, "payment.completed", cancellationToken: stoppingToken);
             await _channel.QueueBindAsync(QueueName, ExchangeName, "payment.failed", cancellationToken: stoppingToken);
             await _channel.QueueBindAsync(QueueName, ExchangeName, "shipping.created", cancellationToken: stoppingToken);
+            await _channel.QueueBindAsync(QueueName, ExchangeName, "inventory.failed", cancellationToken: stoppingToken);
             await _channel.QueueBindAsync(QueueName, ExchangeName, "shipping.failed", cancellationToken: stoppingToken);
 
             _logger.LogInformation("Ordering order status update consumer listening on queue: {QueueName}...", QueueName);
@@ -100,6 +101,7 @@ namespace Ordering.API.Infrastructure.BackgroundWorkers
                                     {
                                         order.Status = OrderStatus.Paid;
                                         order.TransactionId = data.TransactionId;
+                                        order.PaidAtUtc = DateTime.UtcNow;
                                         await dbContext.SaveChangesAsync(stoppingToken);
                                         _logger.LogInformation("Order {OrderId} status updated to Paid.", data.OrderId);
                                     }
@@ -116,6 +118,7 @@ namespace Ordering.API.Infrastructure.BackgroundWorkers
                                         order.Status = OrderStatus.Shipped;
                                         order.TrackingNumber = data.TrackingNumber;
                                         order.Carrier = data.Carrier;
+                                        order.ShippedAtUtc = DateTime.UtcNow;
                                         await dbContext.SaveChangesAsync(stoppingToken);
                                         _logger.LogInformation("Order {OrderId} status updated to Shipped.", data.OrderId);
                                     }

@@ -39,6 +39,8 @@ namespace Ordering.API.Application.Handlers
                 TransactionId: o.TransactionId,
                 TrackingNumber: o.TrackingNumber,
                 Carrier: o.Carrier,
+                PaidAtUtc: o.PaidAtUtc,
+                ShippedAtUtc: o.ShippedAtUtc,
                 Items: o.Items.Select(i => new OrderItemDto(
                     ProductId: i.ProductId.ToString(),
                     ProductName: i.ProductName,

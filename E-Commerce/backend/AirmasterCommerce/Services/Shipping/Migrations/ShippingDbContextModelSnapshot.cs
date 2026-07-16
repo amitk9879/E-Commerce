@@ -22,6 +22,24 @@ namespace Shipping.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Shipping.Data.Entities.IdempotencyRecord", b =>
+                {
+                    b.Property<Guid>("EventId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("EventType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ProcessedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("EventId");
+
+                    b.ToTable("IdempotencyRecords");
+                });
+
             modelBuilder.Entity("Shipping.Data.Entities.Shipment", b =>
                 {
                     b.Property<Guid>("Id")

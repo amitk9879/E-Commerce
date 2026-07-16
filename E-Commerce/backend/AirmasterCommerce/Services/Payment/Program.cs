@@ -33,7 +33,7 @@ builder.Services.AddHttpClient("PaymentGateway", client =>
 }).AddStandardResilienceHandler();
 
 // Register the asynchronous Background Worker listener service
-builder.Services.AddHostedService<OrderCreatedConsumer>();
+builder.Services.AddHostedService<Payment.Consumers.InventoryReservedConsumer>();
 builder.Services.AddHostedService<ShippingFailedConsumer>();
 
 var app = builder.Build();

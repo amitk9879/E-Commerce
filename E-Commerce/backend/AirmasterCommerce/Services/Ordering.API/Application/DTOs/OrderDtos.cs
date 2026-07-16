@@ -30,6 +30,8 @@ namespace Ordering.API.Application.DTOs
         string? TransactionId,
         string? TrackingNumber,
         string? Carrier,
+        DateTime? PaidAtUtc,
+        DateTime? ShippedAtUtc,
         List<OrderItemDto> Items
     );
 

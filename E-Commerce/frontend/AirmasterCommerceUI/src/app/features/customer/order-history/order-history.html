@@ -134,6 +134,7 @@
                 <h6 class="text-uppercase text-muted fw-bold small mb-3">Payment Receipt</h6>
                 @if (order.transactionId) {
                   <div class="mb-2"><strong>Gateway Reference:</strong><br><code class="small text-slate-700">{{ order.transactionId }}</code></div>
+                  <div class="mb-2"><strong>Paid On:</strong><br><span class="text-secondary small">{{ order.paidAtUtc | date:'medium' }}</span></div>
                   <div><strong>Transaction Status:</strong><br><span class="text-success fw-semibold small">Authorized & Cleared</span></div>
                 } @else {
                   <div class="text-muted italic small">Verification checking in progress...</div>
@@ -147,6 +148,7 @@
                 <h6 class="text-uppercase text-muted fw-bold small mb-3">Logistics Tracking</h6>
                 @if (order.trackingNumber) {
                   <div class="mb-2"><strong>Tracking ID:</strong><br><code class="small text-slate-700">{{ order.trackingNumber }}</code></div>
+                  <div class="mb-2"><strong>Shipped On:</strong><br><span class="text-secondary small">{{ order.shippedAtUtc | date:'medium' }}</span></div>
                   <div><strong>Carrier:</strong><br><span class="badge bg-secondary">{{ order.carrier || 'FedEx' }}</span></div>
                 } @else {
                   <div class="text-muted italic small">Label generation pending...</div>
