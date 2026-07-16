@@ -7,6 +7,7 @@ using Ordering.API.Infrastructure.Data;
 using SharedKernel.Behaviors;
 using SharedKernel.Middleware;
 using SharedKernel.Logging;
+using SharedKernel.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddSharedSerilogLogging("Ordering.API");
@@ -44,6 +45,9 @@ builder.Services.AddMediatR(cfg =>
 builder.Services.AddHostedService<OutboxProcessorWorker>();
 builder.Services.AddHostedService<OrderStatusUpdateConsumer>();
 
+builder.Services.AddAirmasterJwtAuthentication(builder.Configuration);
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -55,6 +59,7 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<CorrelationIdMiddleware>();
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

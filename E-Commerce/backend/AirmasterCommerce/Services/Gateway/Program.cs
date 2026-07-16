@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.RateLimiting;
 using SharedKernel.Logging;
+using SharedKernel.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddSharedSerilogLogging("Gateway");
@@ -64,11 +65,19 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Configure JWT Authentication
+builder.Services.AddAirmasterJwtAuthentication(builder.Configuration);
+// Tell YARP to forward the Authorization header correctly if needed
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 app.UseCors("AngularDevShell");
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 // 3. Enable the Rate Limiter Middleware BEFORE the Reverse Proxy
 app.UseRateLimiter();

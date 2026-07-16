@@ -7,6 +7,7 @@ using SharedKernel.Caching;
 using SharedKernel.Interfaces;
 using SharedKernel.Middleware;
 using SharedKernel.Logging;
+using SharedKernel.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddSharedSerilogLogging("Catalog.API");
@@ -43,6 +44,9 @@ builder.Services.AddSingleton<EventBus.RabbitMQEventBus>(sp =>
 builder.Services.AddHostedService<Catalog.API.Infrastructure.BackgroundWorkers.OrderCreatedConsumer>();
 builder.Services.AddHostedService<Catalog.API.Infrastructure.BackgroundWorkers.TransactionFailedConsumer>();
 
+builder.Services.AddAirmasterJwtAuthentication(builder.Configuration);
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -54,6 +58,7 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<CorrelationIdMiddleware>();
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

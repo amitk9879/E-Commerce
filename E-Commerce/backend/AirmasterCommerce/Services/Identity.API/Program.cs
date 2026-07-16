@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using SharedKernel.Behaviors;
 using SharedKernel.Middleware;
 using SharedKernel.Logging;
+using SharedKernel.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddSharedSerilogLogging("Identity.API");
@@ -26,6 +27,9 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBeh
 
 // Register application services
 builder.Services.AddScoped<TokenService>();
+
+builder.Services.AddAirmasterJwtAuthentication(builder.Configuration);
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 

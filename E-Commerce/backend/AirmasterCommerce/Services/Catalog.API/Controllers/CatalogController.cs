@@ -2,6 +2,7 @@ using Catalog.API.Application.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Catalog.API.Controllers
 {
@@ -36,6 +37,7 @@ namespace Catalog.API.Controllers
         }
 
         [HttpPost("products")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<ProductDto>> CreateProduct([FromBody] CreateProductCommand command)
         {
             var result = await _mediator.Send(command);

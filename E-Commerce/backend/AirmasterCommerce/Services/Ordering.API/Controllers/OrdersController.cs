@@ -1,6 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Ordering.API.Application.DTOs;
 using System;
 using System.Threading.Tasks;
@@ -9,6 +11,7 @@ namespace Ordering.API.Controllers
 {
     [Route("api/orders")]
     [ApiController]
+    [Authorize]
     public class OrdersController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -32,6 +35,7 @@ namespace Ordering.API.Controllers
         }
 
         [HttpGet("all")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllOrders([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
             var result = await _mediator.Send(new GetAllOrdersQuery(page, pageSize));
@@ -39,6 +43,7 @@ namespace Ordering.API.Controllers
         }
 
         [HttpGet("recent")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetRecentOrders([FromQuery] int limit = 5)
         {
             var result = await _mediator.Send(new GetRecentOrdersQuery(limit));
@@ -46,6 +51,7 @@ namespace Ordering.API.Controllers
         }
 
         [HttpGet("metrics")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetOrderMetrics()
         {
             var result = await _mediator.Send(new GetOrderMetricsQuery());
